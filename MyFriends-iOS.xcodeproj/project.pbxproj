@@ -19,6 +19,10 @@
 		8ECE05A01C86EECA00F5DAA6 /* MFTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE059F1C86EECA00F5DAA6 /* MFTableViewCell.m */; };
 		8ECE05A71C86F18600F5DAA6 /* MFFriendDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE05A61C86F18600F5DAA6 /* MFFriendDetailsViewController.m */; };
 		8ECE05AA1C86F1C000F5DAA6 /* MFUsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE05A91C86F1C000F5DAA6 /* MFUsersViewController.m */; };
+		8ECE05B01C87037C00F5DAA6 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE05AE1C87037C00F5DAA6 /* Model.xcdatamodeld */; };
+		8ECE05B41C87052D00F5DAA6 /* MFPersistenceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE05B31C87052D00F5DAA6 /* MFPersistenceManager.m */; };
+		8ECE05B81C87057400F5DAA6 /* NSManagedObjectContext+MFSave.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE05B71C87057400F5DAA6 /* NSManagedObjectContext+MFSave.m */; };
+		8ECE05BB1C8705A600F5DAA6 /* MFNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE05BA1C8705A600F5DAA6 /* MFNetworkManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +67,13 @@
 		8ECE05A61C86F18600F5DAA6 /* MFFriendDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MFFriendDetailsViewController.m; path = Controllers/MFFriendDetailsViewController.m; sourceTree = "<group>"; };
 		8ECE05A81C86F1C000F5DAA6 /* MFUsersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFUsersViewController.h; sourceTree = "<group>"; };
 		8ECE05A91C86F1C000F5DAA6 /* MFUsersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFUsersViewController.m; sourceTree = "<group>"; };
+		8ECE05AF1C87037C00F5DAA6 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		8ECE05B21C87052D00F5DAA6 /* MFPersistenceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MFPersistenceManager.h; path = Tools/PersistenceManager/MFPersistenceManager.h; sourceTree = "<group>"; };
+		8ECE05B31C87052D00F5DAA6 /* MFPersistenceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MFPersistenceManager.m; path = Tools/PersistenceManager/MFPersistenceManager.m; sourceTree = "<group>"; };
+		8ECE05B61C87057400F5DAA6 /* NSManagedObjectContext+MFSave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObjectContext+MFSave.h"; path = "Tools/PersistenceManager/NSManagedObjectContext+MFSave.h"; sourceTree = "<group>"; };
+		8ECE05B71C87057400F5DAA6 /* NSManagedObjectContext+MFSave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObjectContext+MFSave.m"; path = "Tools/PersistenceManager/NSManagedObjectContext+MFSave.m"; sourceTree = "<group>"; };
+		8ECE05B91C8705A600F5DAA6 /* MFNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MFNetworkManager.h; path = Tools/Networking/MFNetworkManager.h; sourceTree = "<group>"; };
+		8ECE05BA1C8705A600F5DAA6 /* MFNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MFNetworkManager.m; path = Tools/Networking/MFNetworkManager.m; sourceTree = "<group>"; };
 		C167A1AB978AB6AB8BDC6C7B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -127,6 +138,8 @@
 			children = (
 				8E2DFEEF1C85F99300566825 /* AppDelegate.h */,
 				8E2DFEF01C85F99300566825 /* AppDelegate.m */,
+				8ECE05BD1C8705B700F5DAA6 /* Tools */,
+				8ECE05B11C87038300F5DAA6 /* Model */,
 				8ECE059D1C86ED5300F5DAA6 /* Controllers */,
 				8E2DFEF51C85F99300566825 /* Main.storyboard */,
 				8E2DFEF81C85F99300566825 /* Assets.xcassets */,
@@ -184,6 +197,43 @@
 				8ECE059F1C86EECA00F5DAA6 /* MFTableViewCell.m */,
 			);
 			name = CustomCell;
+			sourceTree = "<group>";
+		};
+		8ECE05B11C87038300F5DAA6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8ECE05AE1C87037C00F5DAA6 /* Model.xcdatamodeld */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		8ECE05B51C87053100F5DAA6 /* PersistanceManager */ = {
+			isa = PBXGroup;
+			children = (
+				8ECE05B21C87052D00F5DAA6 /* MFPersistenceManager.h */,
+				8ECE05B31C87052D00F5DAA6 /* MFPersistenceManager.m */,
+				8ECE05B61C87057400F5DAA6 /* NSManagedObjectContext+MFSave.h */,
+				8ECE05B71C87057400F5DAA6 /* NSManagedObjectContext+MFSave.m */,
+			);
+			name = PersistanceManager;
+			sourceTree = "<group>";
+		};
+		8ECE05BC1C8705AB00F5DAA6 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				8ECE05B91C8705A600F5DAA6 /* MFNetworkManager.h */,
+				8ECE05BA1C8705A600F5DAA6 /* MFNetworkManager.m */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
+		8ECE05BD1C8705B700F5DAA6 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				8ECE05BC1C8705AB00F5DAA6 /* Networking */,
+				8ECE05B51C87053100F5DAA6 /* PersistanceManager */,
+			);
+			name = Tools;
 			sourceTree = "<group>";
 		};
 		FE4274B5BDADE4AAD0D2AD2A /* Pods */ = {
@@ -378,8 +428,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E2DFEF11C85F99300566825 /* AppDelegate.m in Sources */,
+				8ECE05BB1C8705A600F5DAA6 /* MFNetworkManager.m in Sources */,
 				8E2DFEEE1C85F99300566825 /* main.m in Sources */,
+				8ECE05B81C87057400F5DAA6 /* NSManagedObjectContext+MFSave.m in Sources */,
 				8ECE05A71C86F18600F5DAA6 /* MFFriendDetailsViewController.m in Sources */,
+				8ECE05B01C87037C00F5DAA6 /* Model.xcdatamodeld in Sources */,
+				8ECE05B41C87052D00F5DAA6 /* MFPersistenceManager.m in Sources */,
 				8ECE05A01C86EECA00F5DAA6 /* MFTableViewCell.m in Sources */,
 				8ECE05AA1C86F1C000F5DAA6 /* MFUsersViewController.m in Sources */,
 				8ECE059C1C86ED4800F5DAA6 /* MFAllFriendsViewController.m in Sources */,
@@ -629,6 +683,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		8ECE05AE1C87037C00F5DAA6 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				8ECE05AF1C87037C00F5DAA6 /* Model.xcdatamodel */,
+			);
+			currentVersion = 8ECE05AF1C87037C00F5DAA6 /* Model.xcdatamodel */;
+			name = Model.xcdatamodeld;
+			path = Model/Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 8E2DFEE11C85F99300566825 /* Project object */;
 }
