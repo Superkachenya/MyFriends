@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void(^Completion)(NSError *error, NSMutableArray *users);
+
 @interface MFNetworkManager : NSObject
 
-+ (void)showRandomUsers;
++ (void)showRandomUsersWithCompletionBlock:(Completion)block;
 
 @end

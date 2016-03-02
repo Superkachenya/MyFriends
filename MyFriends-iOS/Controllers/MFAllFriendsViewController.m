@@ -8,9 +8,9 @@
 
 #import "MFAllFriendsViewController.h"
 #import "MFTableViewCell.h"
-#import "MFNetworkManager.h"
 
 @interface MFAllFriendsViewController ()
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -19,7 +19,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [MFNetworkManager showRandomUsers];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -8,10 +8,14 @@
 
 #import "MFUsersViewController.h"
 #import "MFTableViewCell.h"
+#import "MFNetworkManager.h"
+#import "MFUser.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface MFUsersViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSMutableArray *users;
 
 @end
 
@@ -19,7 +23,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [MFNetworkManager showRandomUsersWithCompletionBlock:^(NSError *error, NSMutableArray *users) {
+        if (error) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error!"
+                                                                           message:error.localizedDescription
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * _Nonnull action) {
+                                                               [alert dismissViewControllerAnimated:YES
+                                                                                         completion:nil];
+                                                           }];
+            [alert addAction:cancel];
+            [self presentViewController:alert animated:YES completion:nil];
+        } else {
+            self.users = users;
+            [self.tableView reloadData];
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -28,12 +49,18 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return [self.users count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *const reuseIdentifier = @"userCell";
     MFTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
+    MFUser *user = self.users[indexPath.row];
+    NSURL *url = [NSURL URLWithString:user.photoThumbnail];
+    [cell.userPhoto sd_setImageWithURL:url
+                      placeholderImage:[UIImage imageNamed:@"placeholder.jpg"]];
+    cell.firstName.text = user.firstName;
+    cell.lastName.text = user.lastName;
     return cell;
 }
 
