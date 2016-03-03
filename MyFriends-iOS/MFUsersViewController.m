@@ -12,6 +12,7 @@
 #import "MFUser.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "MFPersistenceManager.h"
+#import "NSManagedObjectContext+MFSave.h"
 #import <CoreData/CoreData.h>
 #import "MFFriend.h"
 
@@ -85,7 +86,27 @@
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    MFUser *user = self.users[indexPath.row];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"MFFriend"];
+    fetchRequest.fetchLimit = 1;
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"email == %@",user.email];
+    MFFriend *newFriend = nil;
+    newFriend = [self.context executeFetchRequest:fetchRequest
+                                            error:nil].firstObject;
+    if (newFriend == nil) {
+        newFriend = [NSEntityDescription insertNewObjectForEntityForName:@"MFFriend"
+                                                  inManagedObjectContext:self.context];
+        newFriend.firstName = user.firstName;
+        newFriend.lastName = user.lastName;
+        newFriend.email = user.email;
+        newFriend.phone = user.phone;
+        newFriend.photoLarge = user.photoLarge;
+        newFriend.photoThumbnail = user.photoThumbnail;
+        newFriend.friend = @YES;
+        [self.context saveWithCompletionBlock:^{
+        }];
+    }
+    [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
 }
 /*
  #pragma mark - Navigation
