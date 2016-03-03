@@ -10,7 +10,7 @@
 #import "AFNetworking.h"
 #import "MFUser.h"
 
-NSString *const url = @"http://api.randomuser.me/?results=1000";
+NSString *const url = @"http://api.randomuser.me/?results=100";
 
 @implementation MFNetworkManager
 

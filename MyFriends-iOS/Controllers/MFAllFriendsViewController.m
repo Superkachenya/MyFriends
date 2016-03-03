@@ -8,6 +8,7 @@
 
 #import "MFAllFriendsViewController.h"
 #import "MFTableViewCell.h"
+#import "MFFriendDetailsViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "MFPersistenceManager.h"
 #import "NSManagedObjectContext+MFSave.h"
@@ -61,9 +62,16 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"showDetails"]) {
+        NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
+        MFFriendDetailsViewController *details = segue.destinationViewController;
+        details.friend = [self.fetchController objectAtIndexPath:indexPath];
+    }
 }
+
 
 #pragma mark - NSFetchedResultsControllerDelegate
 

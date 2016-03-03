@@ -30,6 +30,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.context = [MFPersistenceManager sharedManager].workerContext;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
     [MFNetworkManager showRandomUsersWithCompletionBlock:^(NSError *error, NSMutableArray *users) {
         if (error) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error!"
@@ -46,27 +54,8 @@
         } else {
             self.users = users;
             [self.tableView reloadData];
-            [self dismissViewControllerAnimated:self.alertController completion:nil];
         }
     }];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    self.alertController = [UIAlertController
-                            alertControllerWithTitle:@"Loading Users"
-                            message:@"Please wait...\n\n"
-                            preferredStyle:UIAlertControllerStyleAlert];
-    UIActivityIndicatorView *alertInd = [[UIActivityIndicatorView alloc]
-                                         initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    alertInd.frame = CGRectMake(0, 40, 270, 100);
-    [alertInd startAnimating];
-    [self.alertController.view addSubview:alertInd];
-    [self presentViewController:self.alertController animated:YES completion:nil];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
