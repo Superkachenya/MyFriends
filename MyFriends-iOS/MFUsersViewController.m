@@ -11,11 +11,16 @@
 #import "MFNetworkManager.h"
 #import "MFUser.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "MFPersistenceManager.h"
+#import <CoreData/CoreData.h>
+#import "MFFriend.h"
 
 @interface MFUsersViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *users;
+@property (strong, nonatomic) UIAlertController *alertController;
+@property (strong, nonatomic) NSManagedObjectContext *context;
 
 @end
 
@@ -23,6 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.context = [MFPersistenceManager sharedManager].workerContext;
     [MFNetworkManager showRandomUsersWithCompletionBlock:^(NSError *error, NSMutableArray *users) {
         if (error) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error!"
@@ -39,6 +45,7 @@
         } else {
             self.users = users;
             [self.tableView reloadData];
+            [self dismissViewControllerAnimated:self.alertController completion:nil];
         }
     }];
 }
@@ -46,6 +53,19 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    self.alertController = [UIAlertController
+                            alertControllerWithTitle:@"Loading Users"
+                            message:@"Please wait...\n\n"
+                            preferredStyle:UIAlertControllerStyleAlert];
+    UIActivityIndicatorView *alertInd = [[UIActivityIndicatorView alloc]
+                                         initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    alertInd.frame = CGRectMake(0, 40, 270, 100);
+    [alertInd startAnimating];
+    [self.alertController.view addSubview:alertInd];
+    [self presentViewController:self.alertController animated:YES completion:nil];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -64,15 +84,17 @@
     return cell;
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
 }
-*/
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

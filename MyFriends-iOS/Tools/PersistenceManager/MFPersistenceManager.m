@@ -20,13 +20,13 @@
 
 @implementation MFPersistenceManager
 
-+ (instancetype)sharedPersistenceController {
-    static MFPersistenceManager *sharedInstance = nil;
++ (instancetype)sharedManager {
+    static MFPersistenceManager *sharedManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedInstance = [MFPersistenceManager new];
+        sharedManager = [MFPersistenceManager new];
     });
-    return sharedInstance;
+    return sharedManager;
 }
 
 - (instancetype)init {

@@ -212,8 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				8ECE06121C872E1200F5DAA6 /* Friend */,
-				8ECE06131C872E3800F5DAA6 /* MFUser.h */,
-				8ECE06141C872E3800F5DAA6 /* MFUser.m */,
+				8ECE06161C8752A200F5DAA6 /* User */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -257,6 +256,15 @@
 				8ECE060F1C872DAF00F5DAA6 /* MFFriend.m */,
 			);
 			name = Friend;
+			sourceTree = "<group>";
+		};
+		8ECE06161C8752A200F5DAA6 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				8ECE06131C872E3800F5DAA6 /* MFUser.h */,
+				8ECE06141C872E3800F5DAA6 /* MFUser.m */,
+			);
+			name = User;
 			sourceTree = "<group>";
 		};
 		FE4274B5BDADE4AAD0D2AD2A /* Pods */ = {
