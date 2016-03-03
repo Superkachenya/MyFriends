@@ -66,6 +66,13 @@
 }
 #pragma mark - UITableViewDelegate
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    MFFriend *forgivenFriend = [self.fetchController objectAtIndexPath:indexPath];
+    forgivenFriend.friend = @YES;
+    [self.context saveWithCompletionBlock:^{
+    }];
+}
+
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
@@ -75,19 +82,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.context deleteObject:[self.fetchController objectAtIndexPath:indexPath]];
         [self.context saveWithCompletionBlock:^{
-        }];    }
-}
-
-#pragma mark - Navigation
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"showBadFriend"]) {
-        NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
-        MFFriendDetailsViewController *details = segue.destinationViewController;
-        details.friend = [self.fetchController objectAtIndexPath:indexPath];
+        }];
     }
 }
-
 
 #pragma mark - NSFetchedResultsControllerDelegate
 

@@ -9,14 +9,15 @@
 #import "MFFriendDetailsViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "MFFriend.h"
+#import "TSValidatedTextField.h"
 
-@interface MFFriendDetailsViewController ()
+@interface MFFriendDetailsViewController () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *userPhoto;
 @property (weak, nonatomic) IBOutlet UILabel *firstName;
 @property (weak, nonatomic) IBOutlet UILabel *lastName;
-@property (weak, nonatomic) IBOutlet UITextField *phone;
-@property (weak, nonatomic) IBOutlet UITextField *email;
+@property (weak, nonatomic) IBOutlet TSValidatedTextField *phone;
+@property (weak, nonatomic) IBOutlet TSValidatedTextField *email;
 
 @end
 
@@ -27,7 +28,10 @@
     self.userPhoto.layer.cornerRadius = self.userPhoto.frame.size.width / 2;
     self.userPhoto.clipsToBounds = YES;
     self.userPhoto.layer.borderWidth = 1.0f;
-    self.userPhoto.layer.borderColor = [UIColor purpleColor].CGColor;}
+    self.userPhoto.layer.borderColor = [UIColor purpleColor].CGColor;
+    self.phone.delegate = self;
+    self.email.delegate = self;
+   }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -47,6 +51,67 @@
 - (IBAction)cancelButtonDidPress:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (IBAction)doneButtonDidPress:(id)sender {
+}
+- (IBAction)userDidTap:(id)sender {
+    [self.phone resignFirstResponder];
+    [self.email resignFirstResponder];
+}
+
+- (IBAction)phoneEditingDidBegin:(id)sender {
+    self.phone.regexpPattern = @"\\d{3}-\\d{3}-\\d{3}";
+    self.phone.regexpValidColor = [UIColor greenColor];
+    self.phone.regexpInvalidColor = [UIColor redColor];
+    self.phone.minimalNumberOfCharactersToStartValidation = 11;
+    self.phone.validWhenType = NO;
+    self.phone.validatedFieldBlock = ^(ValidationResult result, BOOL isEditing) {
+        
+        switch (result) {
+            case ValidationPassed:
+                NSLog(@"Field is valid.");
+                break;
+                
+            case ValidationFailed:
+                NSLog(@"Field is invalid.");
+                break;
+                
+            case ValueTooShortToValidate:
+                NSLog(@"Value too short to validate. Type longer");
+                break;
+        }
+    };
+}
+
+- (IBAction)emailEditingDidBegin:(id)sender {
+    self.email.regexpValidColor = [UIColor greenColor];
+    self.email.regexpInvalidColor = [UIColor redColor];
+    self.email.regexpPattern = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    self.email.validWhenType = NO;
+    self.email.validatedFieldBlock = ^(ValidationResult result, BOOL isEditing) {
+        
+        switch (result) {
+            case ValidationPassed:
+                NSLog(@"Field is valid.");
+                break;
+                
+            case ValidationFailed:
+                NSLog(@"Field is invalid.");
+                break;
+                
+            case ValueTooShortToValidate:
+                NSLog(@"Value too short to validate. Type longer");
+                break;
+        }
+    };
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self.phone resignFirstResponder];
+    [self.email resignFirstResponder];
+    return YES;
+}
+
 
 /*
  #pragma mark - Navigation
