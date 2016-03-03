@@ -15,6 +15,7 @@
 		8E2DFEFC1C85F99300566825 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E2DFEFA1C85F99300566825 /* LaunchScreen.storyboard */; };
 		8E2DFF071C85F99300566825 /* MyFriends_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E2DFF061C85F99300566825 /* MyFriends_iOSTests.m */; };
 		8E2DFF121C85F99300566825 /* MyFriends_iOSUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E2DFF111C85F99300566825 /* MyFriends_iOSUITests.m */; };
+		8E9EECE81C887465006A0E8F /* MFBadFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9EECE71C887465006A0E8F /* MFBadFriendsViewController.m */; };
 		8ECE059C1C86ED4800F5DAA6 /* MFAllFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE059B1C86ED4800F5DAA6 /* MFAllFriendsViewController.m */; };
 		8ECE05A01C86EECA00F5DAA6 /* MFTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE059F1C86EECA00F5DAA6 /* MFTableViewCell.m */; };
 		8ECE05A71C86F18600F5DAA6 /* MFFriendDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE05A61C86F18600F5DAA6 /* MFFriendDetailsViewController.m */; };
@@ -62,6 +63,8 @@
 		8E2DFF0D1C85F99300566825 /* MyFriends-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MyFriends-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E2DFF111C85F99300566825 /* MyFriends_iOSUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyFriends_iOSUITests.m; sourceTree = "<group>"; };
 		8E2DFF131C85F99300566825 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8E9EECE61C887465006A0E8F /* MFBadFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MFBadFriendsViewController.h; path = Controllers/MFBadFriendsViewController.h; sourceTree = "<group>"; };
+		8E9EECE71C887465006A0E8F /* MFBadFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MFBadFriendsViewController.m; path = Controllers/MFBadFriendsViewController.m; sourceTree = "<group>"; };
 		8ECE059A1C86ED4800F5DAA6 /* MFAllFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MFAllFriendsViewController.h; path = Controllers/MFAllFriendsViewController.h; sourceTree = "<group>"; };
 		8ECE059B1C86ED4800F5DAA6 /* MFAllFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MFAllFriendsViewController.m; path = Controllers/MFAllFriendsViewController.m; sourceTree = "<group>"; };
 		8ECE059E1C86EECA00F5DAA6 /* MFTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MFTableViewCell.h; path = Controllers/CustomCell/MFTableViewCell.h; sourceTree = "<group>"; };
@@ -190,6 +193,8 @@
 			children = (
 				8ECE059A1C86ED4800F5DAA6 /* MFAllFriendsViewController.h */,
 				8ECE059B1C86ED4800F5DAA6 /* MFAllFriendsViewController.m */,
+				8E9EECE61C887465006A0E8F /* MFBadFriendsViewController.h */,
+				8E9EECE71C887465006A0E8F /* MFBadFriendsViewController.m */,
 				8ECE05A51C86F18600F5DAA6 /* MFFriendDetailsViewController.h */,
 				8ECE05A61C86F18600F5DAA6 /* MFFriendDetailsViewController.m */,
 				8ECE05A81C86F1C000F5DAA6 /* MFUsersViewController.h */,
@@ -471,6 +476,7 @@
 				8ECE05AA1C86F1C000F5DAA6 /* MFUsersViewController.m in Sources */,
 				8ECE059C1C86ED4800F5DAA6 /* MFAllFriendsViewController.m in Sources */,
 				8ECE06101C872DAF00F5DAA6 /* MFFriend+CoreDataProperties.m in Sources */,
+				8E9EECE81C887465006A0E8F /* MFBadFriendsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

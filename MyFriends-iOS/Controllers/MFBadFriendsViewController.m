@@ -1,12 +1,12 @@
 //
-//  ViewController.m
+//  MFBadFriendsViewController.m
 //  MyFriends-iOS
 //
-//  Created by Danil on 01.03.16.
+//  Created by Danil on 03.03.16.
 //  Copyright © 2016 Cleveroad. All rights reserved.
 //
 
-#import "MFAllFriendsViewController.h"
+#import "MFBadFriendsViewController.h"
 #import "MFTableViewCell.h"
 #import "MFFriendDetailsViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
@@ -15,15 +15,14 @@
 #import <CoreData/CoreData.h>
 #import "MFFriend.h"
 
-@interface MFAllFriendsViewController () <NSFetchedResultsControllerDelegate>
-
+@interface MFBadFriendsViewController () <NSFetchedResultsControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSFetchedResultsController *fetchController;
 @property (strong, nonatomic) NSManagedObjectContext *context;
 
 @end
 
-@implementation MFAllFriendsViewController
+@implementation MFBadFriendsViewController 
 
 #pragma mark - UIViewlifeCycle
 
@@ -31,7 +30,7 @@
     [super viewDidLoad];
     self.context = [MFPersistenceManager sharedManager].mainContext;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"MFFriend"];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"friend == YES"];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"friend == NO"];
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"firstName" ascending:YES];
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
     self.fetchController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
@@ -47,10 +46,6 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
-}
-
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -59,7 +54,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *const reuseIdentifier = @"friendCell";
+    NSString *const reuseIdentifier = @"badFriendCell";
     MFTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
     MFFriend *friend = [self.fetchController objectAtIndexPath:indexPath];
     NSURL *url = [NSURL URLWithString:friend.photoThumbnail];
@@ -69,7 +64,6 @@
     cell.lastName.text = friend.lastName;
     return cell;
 }
-
 #pragma mark - UITableViewDelegate
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -77,19 +71,17 @@
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
-                                           forRowAtIndexPath:(NSIndexPath *)indexPath {
+forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        MFFriend *badFriend = [self.fetchController objectAtIndexPath:indexPath];
-        badFriend.friend = @NO;
+        [self.context deleteObject:[self.fetchController objectAtIndexPath:indexPath]];
         [self.context saveWithCompletionBlock:^{
-        }];
-    }
+        }];    }
 }
 
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"showFriend"]) {
+    if ([segue.identifier isEqualToString:@"showBadFriend"]) {
         NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
         MFFriendDetailsViewController *details = segue.destinationViewController;
         details.friend = [self.fetchController objectAtIndexPath:indexPath];
