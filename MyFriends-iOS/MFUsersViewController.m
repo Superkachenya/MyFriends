@@ -100,7 +100,10 @@
         newFriend.photoThumbnail = user.photoThumbnail;
         newFriend.friend = @YES;
     }
-    [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+    [self.users removeObjectAtIndex:indexPath.row];
+    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                          withRowAnimation:UITableViewRowAnimationFade];
+
 }
 
 @end
