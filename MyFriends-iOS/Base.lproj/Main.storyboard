@@ -298,6 +298,7 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="doneButton" destination="7L7-Vc-44e" id="djg-nQ-tLJ"/>
                         <outlet property="email" destination="up1-jK-fBw" id="kWt-Dc-yUB"/>
                         <outlet property="firstName" destination="8M3-nU-bdq" id="ccd-iS-I0V"/>
                         <outlet property="lastName" destination="2cV-7W-hQW" id="4Xp-ba-Fwf"/>

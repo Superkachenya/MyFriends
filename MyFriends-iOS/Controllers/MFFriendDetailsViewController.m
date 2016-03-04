@@ -10,6 +10,8 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "MFFriend.h"
 #import "TSValidatedTextField.h"
+#import "MFPersistenceManager.h"
+#import "NSManagedObjectContext+MFSave.h"
 
 @interface MFFriendDetailsViewController () <UITextFieldDelegate>
 
@@ -18,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lastName;
 @property (weak, nonatomic) IBOutlet TSValidatedTextField *phone;
 @property (weak, nonatomic) IBOutlet TSValidatedTextField *email;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 
 @end
 
@@ -31,7 +34,7 @@
     self.userPhoto.layer.borderColor = [UIColor purpleColor].CGColor;
     self.phone.delegate = self;
     self.email.delegate = self;
-   }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -53,7 +56,14 @@
 }
 
 - (IBAction)doneButtonDidPress:(id)sender {
+    self.friend.phone = self.phone.text;
+    self.friend.email = self.email.text;
+    NSManagedObjectContext *context = [MFPersistenceManager sharedManager].mainContext;
+    [context saveWithCompletionBlock:^{
+    }];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 - (IBAction)userDidTap:(id)sender {
     [self.phone resignFirstResponder];
     [self.email resignFirstResponder];
@@ -66,18 +76,15 @@
     self.phone.minimalNumberOfCharactersToStartValidation = 11;
     self.phone.validWhenType = NO;
     self.phone.validatedFieldBlock = ^(ValidationResult result, BOOL isEditing) {
-        
         switch (result) {
             case ValidationPassed:
-                NSLog(@"Field is valid.");
+                self.doneButton.enabled = YES;
                 break;
-                
             case ValidationFailed:
-                NSLog(@"Field is invalid.");
+                self.doneButton.enabled = NO;
                 break;
-                
             case ValueTooShortToValidate:
-                NSLog(@"Value too short to validate. Type longer");
+                self.doneButton.enabled = NO;
                 break;
         }
     };
@@ -89,18 +96,15 @@
     self.email.regexpPattern = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
     self.email.validWhenType = NO;
     self.email.validatedFieldBlock = ^(ValidationResult result, BOOL isEditing) {
-        
         switch (result) {
             case ValidationPassed:
-                NSLog(@"Field is valid.");
+                self.doneButton.enabled = YES;
                 break;
-                
             case ValidationFailed:
-                NSLog(@"Field is invalid.");
+                self.doneButton.enabled = NO;
                 break;
-                
             case ValueTooShortToValidate:
-                NSLog(@"Value too short to validate. Type longer");
+                self.doneButton.enabled = NO;
                 break;
         }
     };

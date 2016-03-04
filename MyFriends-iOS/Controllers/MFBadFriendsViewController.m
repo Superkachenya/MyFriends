@@ -35,7 +35,7 @@
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
     self.fetchController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                managedObjectContext:self.context sectionNameKeyPath:nil
-                                                                          cacheName:@"Cache"];
+                                                                          cacheName:nil];
     NSError *error = nil;
     [self.fetchController performFetch:&error];
     self.fetchController.delegate = self;
