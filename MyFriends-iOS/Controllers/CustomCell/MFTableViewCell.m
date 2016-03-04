@@ -7,6 +7,9 @@
 //
 
 #import "MFTableViewCell.h"
+#import "MFFriend.h"
+#import "MFUser.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @implementation MFTableViewCell
 
@@ -21,6 +24,22 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)configureCellWithFriend:(MFFriend *)friend {
+    NSURL *url = [NSURL URLWithString:friend.photoThumbnail];
+    [self.userPhoto sd_setImageWithURL:url
+                      placeholderImage:[UIImage imageNamed:@"placeholder.jpg"]];
+    self.firstName.text = friend.firstName;
+    self.lastName.text = friend.lastName;
+}
+
+- (void)configureCellWithUser:(MFUser *)user {
+    NSURL *url = [NSURL URLWithString:user.photoThumbnail];
+    [self.userPhoto sd_setImageWithURL:url
+                      placeholderImage:[UIImage imageNamed:@"placeholder.jpg"]];
+    self.firstName.text = user.firstName;
+    self.lastName.text = user.lastName;
 }
 
 @end

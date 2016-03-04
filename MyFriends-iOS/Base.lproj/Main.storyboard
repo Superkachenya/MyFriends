@@ -16,6 +16,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" red="0.18315225839614868" green="0.65572494268417358" blue="0.77969413995742798" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="7AR-GV-MPW">
@@ -30,7 +33,7 @@
             </objects>
             <point key="canvasLocation" x="302" y="442"/>
         </scene>
-        <!--All Friends View Controller-->
+        <!--All friends-->
         <scene sceneID="HxE-gM-nhM">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="RW1-ir-V48" customClass="MFAllFriendsViewController" sceneMemberID="viewController">
@@ -86,7 +89,7 @@
                                             <outlet property="firstName" destination="V6V-TJ-as3" id="BXY-BK-bur"/>
                                             <outlet property="lastName" destination="pSL-37-SLE" id="7aT-u0-5aJ"/>
                                             <outlet property="userPhoto" destination="l88-32-MdX" id="Eps-zA-dIS"/>
-                                            <segue destination="Tty-Kx-79m" kind="presentation" identifier="showFriend" id="WRq-lc-v6C"/>
+                                            <segue destination="wbi-aS-F45" kind="show" identifier="showFriend" id="Rak-ZN-Cs4"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -104,7 +107,8 @@
                             <constraint firstItem="1b7-eN-mCn" firstAttribute="leading" secondItem="TUh-xq-tZc" secondAttribute="leading" id="wbr-dR-rFt"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="RzZ-wW-pXM">
+                    <navigationItem key="navigationItem" title="All friends" id="RzZ-wW-pXM">
+                        <barButtonItem key="backBarButtonItem" title=" " id="hqn-8k-g2a"/>
                         <barButtonItem key="leftBarButtonItem" title="Bad friends" id="EsE-Kq-hAN">
                             <color key="tintColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
@@ -126,10 +130,10 @@
             </objects>
             <point key="canvasLocation" x="727.5" y="441.5"/>
         </scene>
-        <!--Bad Friends View Controller-->
+        <!--Bad friends-->
         <scene sceneID="iv2-Zn-5d4">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="oQp-db-czN" customClass="MFBadFriendsViewController" sceneMemberID="viewController">
+                <viewController title="Bad friends" automaticallyAdjustsScrollViewInsets="NO" id="oQp-db-czN" customClass="MFBadFriendsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dqD-Dj-wRK"/>
                         <viewControllerLayoutGuide type="bottom" id="0UV-Nj-52m"/>
@@ -142,7 +146,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="badFriendCell" rowHeight="60" id="Whu-3w-EyX" customClass="MFTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="badFriendCell" rowHeight="60" id="Whu-3w-EyX" customClass="MFTableViewCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Whu-3w-EyX" id="COd-kY-LVx">
@@ -206,12 +210,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y1H-fr-6rz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1184.5" y="-224.5"/>
+            <point key="canvasLocation" x="1172.5" y="-246.5"/>
         </scene>
-        <!--Friend Details View Controller-->
+        <!--Friend Info-->
         <scene sceneID="XF6-aF-YsK">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="wbi-aS-F45" customClass="MFFriendDetailsViewController" sceneMemberID="viewController">
+                <viewController title="Friend Info" automaticallyAdjustsScrollViewInsets="NO" id="wbi-aS-F45" customClass="MFFriendDetailsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="a7R-EB-ytp"/>
                         <viewControllerLayoutGuide type="bottom" id="K71-Qe-XAA"/>
@@ -278,7 +282,7 @@
                             <outletCollection property="gestureRecognizers" destination="341-He-9m8" appends="YES" id="o6f-xI-voe"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" id="eH2-Rr-rUN">
+                    <navigationItem key="navigationItem" title="Friend Info" id="eH2-Rr-rUN">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="q0Q-bd-NxW">
                             <color key="tintColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
@@ -308,12 +312,12 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1579.5" y="886.5"/>
+            <point key="canvasLocation" x="1609.5" y="884.5"/>
         </scene>
-        <!--Users View Controller-->
+        <!--Choose new friend-->
         <scene sceneID="ne7-pm-rgm">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="AXw-0I-VXT" customClass="MFUsersViewController" sceneMemberID="viewController">
+                <viewController title="Choose new friend" automaticallyAdjustsScrollViewInsets="NO" id="AXw-0I-VXT" customClass="MFUsersViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8zQ-Cc-6CE"/>
                         <viewControllerLayoutGuide type="bottom" id="9Hr-mU-Kh2"/>
@@ -390,26 +394,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K6A-He-WqR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1579.5" y="144.5"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="1gT-00-TAl">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Tty-Kx-79m" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gBA-Bl-WRp">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.16078431372549021" green="0.59215686274509804" blue="0.72941176470588232" alpha="1" colorSpace="calibratedRGB"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="wbi-aS-F45" kind="relationship" relationship="rootViewController" id="uq6-uV-R6E"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9oH-sR-bJO" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1184.5" y="886.5"/>
+            <point key="canvasLocation" x="1609.5" y="144.5"/>
         </scene>
     </scenes>
 </document>

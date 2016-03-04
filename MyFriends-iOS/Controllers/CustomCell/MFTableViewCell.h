@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+@class MFFriend, MFUser;
 
 @interface MFTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *userPhoto;
 @property (weak, nonatomic) IBOutlet UILabel *firstName;
 @property (weak, nonatomic) IBOutlet UILabel *lastName;
+
+- (void)configureCellWithFriend:(MFFriend *)friend;
+- (void)configureCellWithUser:(MFUser *)user;
 
 @end

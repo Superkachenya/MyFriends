@@ -9,7 +9,6 @@
 #import "MFAllFriendsViewController.h"
 #import "MFTableViewCell.h"
 #import "MFFriendDetailsViewController.h"
-#import <SDWebImage/UIImageView+WebCache.h>
 #import "MFPersistenceManager.h"
 #import "NSManagedObjectContext+MFSave.h"
 #import <CoreData/CoreData.h>
@@ -31,13 +30,7 @@
     [super viewDidLoad];
     
     self.context = [MFPersistenceManager sharedManager].mainContext;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"MFFriend"];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"friend == YES"];
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"firstName" ascending:YES];
-    [fetchRequest setSortDescriptors:@[sortDescriptor]];
-    self.fetchController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                                               managedObjectContext:self.context sectionNameKeyPath:nil
-                                                                          cacheName:nil];
+    self.fetchController = [MFFriend fetchedResultControllerWithFriend:YES];
     NSError *error = nil;
     [self.fetchController performFetch:&error];
     id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchController sections][0];
@@ -75,11 +68,7 @@
     NSString *const reuseIdentifier = @"friendCell";
     MFTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
     MFFriend *friend = [self.fetchController objectAtIndexPath:indexPath];
-    NSURL *url = [NSURL URLWithString:friend.photoThumbnail];
-    [cell.userPhoto sd_setImageWithURL:url
-                      placeholderImage:[UIImage imageNamed:@"placeholder.jpg"]];
-    cell.firstName.text = friend.firstName;
-    cell.lastName.text = friend.lastName;
+    [cell configureCellWithFriend:friend];
     return cell;
 }
 
@@ -102,8 +91,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"showFriend"]) {
         NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
-        UINavigationController *naviController = segue.destinationViewController;
-        MFFriendDetailsViewController *details = naviController.viewControllers.firstObject;
+        MFFriendDetailsViewController *details = segue.destinationViewController;
         details.friend = [self.fetchController objectAtIndexPath:indexPath];
     }
 }
@@ -111,9 +99,28 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
 #pragma mark - NSFetchedResultsControllerDelegate
 
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    [self.tableView reloadData];
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView beginUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller
+   didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath
+     forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath {
+    switch(type) {
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                                  withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                                  withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView endUpdates];
 }
 
 @end

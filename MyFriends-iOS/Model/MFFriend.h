@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MFFriend : NSManagedObject
 
-// Insert code here to declare functionality of your managed object subclass
++ (NSFetchedResultsController *)fetchedResultControllerWithFriend:(BOOL)flag;
 
 @end
 

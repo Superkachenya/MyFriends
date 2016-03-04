@@ -10,11 +10,11 @@
 #import "MFTableViewCell.h"
 #import "MFNetworkManager.h"
 #import "MFUser.h"
-#import <SDWebImage/UIImageView+WebCache.h>
 #import "MFPersistenceManager.h"
 #import "NSManagedObjectContext+MFSave.h"
 #import <CoreData/CoreData.h>
 #import "MFFriend.h"
+#import "SVProgressHUD.h"
 
 @interface MFUsersViewController ()
 
@@ -31,7 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
     self.context = [MFPersistenceManager sharedManager].workerContext;
     [MFNetworkManager showRandomUsersWithCompletionBlock:^(NSError *error, NSMutableArray *users) {
         if (error) {
@@ -49,6 +49,7 @@
         } else {
             self.users = users;
             [self.tableView reloadData];
+            [SVProgressHUD dismiss];
         }
     }];
 }
@@ -74,11 +75,7 @@
     NSString *const reuseIdentifier = @"userCell";
     MFTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
     MFUser *user = self.users[indexPath.row];
-    NSURL *url = [NSURL URLWithString:user.photoThumbnail];
-    [cell.userPhoto sd_setImageWithURL:url
-                      placeholderImage:[UIImage imageNamed:@"placeholder.jpg"]];
-    cell.firstName.text = user.firstName;
-    cell.lastName.text = user.lastName;
+    [cell configureCellWithUser:user];
     return cell;
 }
 

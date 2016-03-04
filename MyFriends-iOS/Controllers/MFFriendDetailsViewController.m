@@ -59,7 +59,7 @@
 #pragma mark - BarButtons methods
 
 - (IBAction)cancelButtonDidPress:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)doneButtonDidPress:(id)sender {
@@ -67,7 +67,7 @@
     self.friend.email = self.email.text;
     NSManagedObjectContext *context = [MFPersistenceManager sharedManager].mainContext;
     [context saveContext];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - TextFields methods

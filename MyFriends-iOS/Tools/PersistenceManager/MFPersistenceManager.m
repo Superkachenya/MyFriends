@@ -77,7 +77,6 @@
                                        error:&error], @"Error initializing PSC: %@\n%@", [error localizedDescription], [error userInfo]);
 }
 
-
 - (void)rootContextDidSave:(NSNotification *)notification {
     [self.mainContext performBlock:^{
         [self.mainContext mergeChangesFromContextDidSaveNotification:notification];

@@ -37,7 +37,6 @@ NSString *const url = @"http://api.randomuser.me/?results=100";
                     });
                 }
             }
-            
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"%@", error);
             copyBlock(error, nil);
