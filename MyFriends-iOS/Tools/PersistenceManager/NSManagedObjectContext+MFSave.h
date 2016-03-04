@@ -12,6 +12,6 @@ typedef void(^ContextCompletionBlock)();
 
 @interface NSManagedObjectContext (Save)
 
-- (void)saveWithCompletionBlock:(ContextCompletionBlock)block;
+- (void)saveContext;
 
 @end

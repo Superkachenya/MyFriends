@@ -26,8 +26,11 @@
 
 @implementation MFFriendDetailsViewController
 
+#pragma mark - UIView lifecycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.userPhoto.layer.cornerRadius = self.userPhoto.frame.size.width / 2;
     self.userPhoto.clipsToBounds = YES;
     self.userPhoto.layer.borderWidth = 1.0f;
@@ -42,6 +45,8 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    
     NSURL *url = [NSURL URLWithString:self.friend.photoLarge];
     [self.userPhoto sd_setImageWithURL:url
                       placeholderImage:[UIImage imageNamed:@"placeholder.jpg"]];
@@ -51,6 +56,8 @@
     self.phone.text = self.friend.phone;
 }
 
+#pragma mark - BarButtons methods
+
 - (IBAction)cancelButtonDidPress:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -59,10 +66,11 @@
     self.friend.phone = self.phone.text;
     self.friend.email = self.email.text;
     NSManagedObjectContext *context = [MFPersistenceManager sharedManager].mainContext;
-    [context saveWithCompletionBlock:^{
-    }];
+    [context saveContext];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+#pragma mark - TextFields methods
 
 - (IBAction)userDidTap:(id)sender {
     [self.phone resignFirstResponder];
@@ -115,16 +123,5 @@
     [self.email resignFirstResponder];
     return YES;
 }
-
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

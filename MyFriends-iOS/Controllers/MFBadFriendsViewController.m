@@ -28,6 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.context = [MFPersistenceManager sharedManager].mainContext;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"MFFriend"];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"friend == NO"];
@@ -44,6 +45,12 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:YES];
+    
+    [self.context saveContext];
 }
 
 #pragma mark - UITableViewDataSource
@@ -69,20 +76,16 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MFFriend *forgivenFriend = [self.fetchController objectAtIndexPath:indexPath];
     forgivenFriend.friend = @YES;
-    [self.context saveWithCompletionBlock:^{
-    }];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
 
--(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.context deleteObject:[self.fetchController objectAtIndexPath:indexPath]];
-        [self.context saveWithCompletionBlock:^{
-        }];
     }
 }
 

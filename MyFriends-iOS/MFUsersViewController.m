@@ -27,17 +27,12 @@
 
 @implementation MFUsersViewController
 
+#pragma mark - UIView lifecycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.context = [MFPersistenceManager sharedManager].workerContext;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)viewWillAppear:(BOOL)animated {
     [MFNetworkManager showRandomUsersWithCompletionBlock:^(NSError *error, NSMutableArray *users) {
         if (error) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error!"
@@ -58,6 +53,19 @@
     }];
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:YES];
+    
+    [self.context saveContext];
+}
+
+#pragma mark - UITableViewDataSource
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.users count];
 }
@@ -74,6 +82,8 @@
     return cell;
 }
 
+#pragma mark - UITableViewDelegate
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MFUser *user = self.users[indexPath.row];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"MFFriend"];
@@ -82,7 +92,7 @@
     MFFriend *newFriend = nil;
     newFriend = [self.context executeFetchRequest:fetchRequest
                                             error:nil].firstObject;
-    if (newFriend == nil) {
+    if (!newFriend) {
         newFriend = [NSEntityDescription insertNewObjectForEntityForName:@"MFFriend"
                                                   inManagedObjectContext:self.context];
         newFriend.firstName = user.firstName;
@@ -92,19 +102,8 @@
         newFriend.photoLarge = user.photoLarge;
         newFriend.photoThumbnail = user.photoThumbnail;
         newFriend.friend = @YES;
-        [self.context saveWithCompletionBlock:^{
-        }];
     }
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
 }
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

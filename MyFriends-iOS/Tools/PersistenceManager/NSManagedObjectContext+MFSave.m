@@ -10,16 +10,12 @@
 
 @implementation NSManagedObjectContext (Save)
 
-- (void)saveWithCompletionBlock:(ContextCompletionBlock)block {
-    ContextCompletionBlock copyContextBlock = [block copy];
+- (void)saveContext {
     if ([self hasChanges]) {
         [self performBlock: ^{
             NSError *error = nil;
             [self save:&error];
-            [self.parentContext saveWithCompletionBlock:^{
-            }];
-            copyContextBlock();
-            NSLog(@"\n\n\nContext saved %@\n\n\n", self);
+            [self.parentContext saveContext];
         }];
     }
 }

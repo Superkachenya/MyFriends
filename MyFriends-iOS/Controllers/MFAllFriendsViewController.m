@@ -29,6 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.context = [MFPersistenceManager sharedManager].mainContext;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"MFFriend"];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"friend == YES"];
@@ -36,9 +37,13 @@
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
     self.fetchController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                managedObjectContext:self.context sectionNameKeyPath:nil
-                                                                          cacheName:@"Cache"];
+                                                                          cacheName:nil];
     NSError *error = nil;
     [self.fetchController performFetch:&error];
+    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchController sections][0];
+    if (![sectionInfo numberOfObjects]) {
+        [self performSegueWithIdentifier:@"showUsers" sender:self];
+    }
     self.fetchController.delegate = self;
 }
 
@@ -47,8 +52,16 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:YES];
+    
+    [self.context saveContext];
 }
 
 #pragma mark - UITableViewDataSource
@@ -77,12 +90,10 @@
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
-                                           forRowAtIndexPath:(NSIndexPath *)indexPath {
+forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         MFFriend *badFriend = [self.fetchController objectAtIndexPath:indexPath];
         badFriend.friend = @NO;
-        [self.context saveWithCompletionBlock:^{
-        }];
     }
 }
 
@@ -91,7 +102,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"showFriend"]) {
         NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
-        MFFriendDetailsViewController *details = segue.destinationViewController;
+        UINavigationController *naviController = segue.destinationViewController;
+        MFFriendDetailsViewController *details = naviController.viewControllers.firstObject;
         details.friend = [self.fetchController objectAtIndexPath:indexPath];
     }
 }

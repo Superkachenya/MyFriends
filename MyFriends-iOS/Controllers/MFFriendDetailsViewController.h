@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class MFFriend;
+
 @interface MFFriendDetailsViewController : UIViewController
 
 @property (strong, nonatomic) MFFriend *friend;
