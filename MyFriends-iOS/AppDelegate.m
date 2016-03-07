@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <MagicalRecord/MagicalRecord.h>
 
 @interface AppDelegate ()
 
@@ -16,7 +17,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"MFModel.sqlite"];
     return YES;
 }
 
@@ -39,7 +40,7 @@
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [MagicalRecord cleanUp];
 }
 
 @end

@@ -20,8 +20,6 @@
 		8ECE05A71C86F18600F5DAA6 /* MFFriendDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE05A61C86F18600F5DAA6 /* MFFriendDetailsViewController.m */; };
 		8ECE05AA1C86F1C000F5DAA6 /* MFUsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE05A91C86F1C000F5DAA6 /* MFUsersViewController.m */; };
 		8ECE05B01C87037C00F5DAA6 /* MFModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE05AE1C87037C00F5DAA6 /* MFModel.xcdatamodeld */; };
-		8ECE05B41C87052D00F5DAA6 /* MFPersistenceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE05B31C87052D00F5DAA6 /* MFPersistenceManager.m */; };
-		8ECE05B81C87057400F5DAA6 /* NSManagedObjectContext+MFSave.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE05B71C87057400F5DAA6 /* NSManagedObjectContext+MFSave.m */; };
 		8ECE05BB1C8705A600F5DAA6 /* MFNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE05BA1C8705A600F5DAA6 /* MFNetworkManager.m */; };
 		8ECE06101C872DAF00F5DAA6 /* MFFriend+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE060D1C872DAF00F5DAA6 /* MFFriend+CoreDataProperties.m */; };
 		8ECE06111C872DAF00F5DAA6 /* MFFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE060F1C872DAF00F5DAA6 /* MFFriend.m */; };
@@ -72,10 +70,6 @@
 		8ECE05A81C86F1C000F5DAA6 /* MFUsersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFUsersViewController.h; sourceTree = "<group>"; };
 		8ECE05A91C86F1C000F5DAA6 /* MFUsersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFUsersViewController.m; sourceTree = "<group>"; };
 		8ECE05AF1C87037C00F5DAA6 /* MFModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MFModel.xcdatamodel; sourceTree = "<group>"; };
-		8ECE05B21C87052D00F5DAA6 /* MFPersistenceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MFPersistenceManager.h; path = Tools/PersistenceManager/MFPersistenceManager.h; sourceTree = "<group>"; };
-		8ECE05B31C87052D00F5DAA6 /* MFPersistenceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MFPersistenceManager.m; path = Tools/PersistenceManager/MFPersistenceManager.m; sourceTree = "<group>"; };
-		8ECE05B61C87057400F5DAA6 /* NSManagedObjectContext+MFSave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObjectContext+MFSave.h"; path = "Tools/PersistenceManager/NSManagedObjectContext+MFSave.h"; sourceTree = "<group>"; };
-		8ECE05B71C87057400F5DAA6 /* NSManagedObjectContext+MFSave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObjectContext+MFSave.m"; path = "Tools/PersistenceManager/NSManagedObjectContext+MFSave.m"; sourceTree = "<group>"; };
 		8ECE05B91C8705A600F5DAA6 /* MFNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MFNetworkManager.h; path = Tools/Networking/MFNetworkManager.h; sourceTree = "<group>"; };
 		8ECE05BA1C8705A600F5DAA6 /* MFNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MFNetworkManager.m; path = Tools/Networking/MFNetworkManager.m; sourceTree = "<group>"; };
 		8ECE060C1C872DAF00F5DAA6 /* MFFriend+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MFFriend+CoreDataProperties.h"; path = "Model/MFFriend+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -222,17 +216,6 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		8ECE05B51C87053100F5DAA6 /* PersistanceManager */ = {
-			isa = PBXGroup;
-			children = (
-				8ECE05B21C87052D00F5DAA6 /* MFPersistenceManager.h */,
-				8ECE05B31C87052D00F5DAA6 /* MFPersistenceManager.m */,
-				8ECE05B61C87057400F5DAA6 /* NSManagedObjectContext+MFSave.h */,
-				8ECE05B71C87057400F5DAA6 /* NSManagedObjectContext+MFSave.m */,
-			);
-			name = PersistanceManager;
-			sourceTree = "<group>";
-		};
 		8ECE05BC1C8705AB00F5DAA6 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -246,7 +229,6 @@
 			isa = PBXGroup;
 			children = (
 				8ECE05BC1C8705AB00F5DAA6 /* Networking */,
-				8ECE05B51C87053100F5DAA6 /* PersistanceManager */,
 			);
 			name = Tools;
 			sourceTree = "<group>";
@@ -466,11 +448,9 @@
 				8E2DFEF11C85F99300566825 /* AppDelegate.m in Sources */,
 				8ECE05BB1C8705A600F5DAA6 /* MFNetworkManager.m in Sources */,
 				8E2DFEEE1C85F99300566825 /* main.m in Sources */,
-				8ECE05B81C87057400F5DAA6 /* NSManagedObjectContext+MFSave.m in Sources */,
 				8ECE05A71C86F18600F5DAA6 /* MFFriendDetailsViewController.m in Sources */,
 				8ECE06151C872E3800F5DAA6 /* MFUser.m in Sources */,
 				8ECE05B01C87037C00F5DAA6 /* MFModel.xcdatamodeld in Sources */,
-				8ECE05B41C87052D00F5DAA6 /* MFPersistenceManager.m in Sources */,
 				8ECE05A01C86EECA00F5DAA6 /* MFTableViewCell.m in Sources */,
 				8ECE06111C872DAF00F5DAA6 /* MFFriend.m in Sources */,
 				8ECE05AA1C86F1C000F5DAA6 /* MFUsersViewController.m in Sources */,

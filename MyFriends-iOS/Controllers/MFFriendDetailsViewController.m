@@ -10,8 +10,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "MFFriend.h"
 #import "TSValidatedTextField.h"
-#import "MFPersistenceManager.h"
-#import "NSManagedObjectContext+MFSave.h"
+#import <MagicalRecord/MagicalRecord.h>
 
 @interface MFFriendDetailsViewController () <UITextFieldDelegate>
 
@@ -63,11 +62,13 @@
 }
 
 - (IBAction)doneButtonDidPress:(id)sender {
-    self.friend.phone = self.phone.text;
-    self.friend.email = self.email.text;
-    NSManagedObjectContext *context = [MFPersistenceManager sharedManager].mainContext;
-    [context saveContext];
-    [self.navigationController popViewControllerAnimated:YES];
+    [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
+        MFFriend *localFriend = [self.friend MR_inContext:localContext];
+        localFriend.phone = self.phone.text;
+        localFriend.email = self.email.text;
+    } completion:^(BOOL contextDidSave, NSError * _Nullable error) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
 }
 
 #pragma mark - TextFields methods

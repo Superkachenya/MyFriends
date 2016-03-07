@@ -10,9 +10,7 @@
 #import "MFTableViewCell.h"
 #import "MFNetworkManager.h"
 #import "MFUser.h"
-#import "MFPersistenceManager.h"
-#import "NSManagedObjectContext+MFSave.h"
-#import <CoreData/CoreData.h>
+#import <MagicalRecord/MagicalRecord.h>
 #import "MFFriend.h"
 #import "SVProgressHUD.h"
 
@@ -21,7 +19,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *users;
 @property (strong, nonatomic) UIAlertController *alertController;
-@property (strong, nonatomic) NSManagedObjectContext *context;
 
 @end
 
@@ -32,7 +29,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
-    self.context = [MFPersistenceManager sharedManager].workerContext;
     [MFNetworkManager showRandomUsersWithCompletionBlock:^(NSError *error, NSMutableArray *users) {
         if (error) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error!"
@@ -62,7 +58,6 @@
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:YES];
     
-    [self.context saveContext];
 }
 
 #pragma mark - UITableViewDataSource
@@ -84,15 +79,8 @@
                                            toView:self.tableView];
     NSIndexPath *tappedIP = [self.tableView indexPathForRowAtPoint:buttonPosition];
     MFUser *user = self.users[tappedIP.row];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"MFFriend"];
-    fetchRequest.fetchLimit = 1;
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"email == %@",user.email];
-    MFFriend *newFriend = nil;
-    newFriend = [self.context executeFetchRequest:fetchRequest
-                                            error:nil].firstObject;
-    if (!newFriend) {
-        newFriend = [NSEntityDescription insertNewObjectForEntityForName:@"MFFriend"
-                                                  inManagedObjectContext:self.context];
+    [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
+        MFFriend *newFriend = [MFFriend MR_createEntityInContext:localContext];
         newFriend.firstName = user.firstName;
         newFriend.lastName = user.lastName;
         newFriend.email = user.email;
@@ -100,7 +88,7 @@
         newFriend.photoLarge = user.photoLarge;
         newFriend.photoThumbnail = user.photoThumbnail;
         newFriend.friend = @YES;
-    }
+    }];
     [self.users removeObjectAtIndex:tappedIP.row];
     [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:tappedIP]
                           withRowAnimation:UITableViewRowAnimationFade];

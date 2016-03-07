@@ -8,10 +8,7 @@
 
 #import "MFBadFriendsViewController.h"
 #import "MFTableViewCell.h"
-#import "MFFriendDetailsViewController.h"
-#import "MFPersistenceManager.h"
-#import "NSManagedObjectContext+MFSave.h"
-#import <CoreData/CoreData.h>
+#import <MagicalRecord/MagicalRecord.h>
 #import "MFFriend.h"
 
 @interface MFBadFriendsViewController () <NSFetchedResultsControllerDelegate>
@@ -28,8 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.context = [MFPersistenceManager sharedManager].mainContext;
-    self.fetchController = [MFFriend fetchedResultControllerWithFriend:NO];
+    self.fetchController = [MFFriend fetchWithMRFriend:NO];
     NSError *error = nil;
     [self.fetchController performFetch:&error];
     self.fetchController.delegate = self;
@@ -42,7 +38,6 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:YES];
     
-    [self.context saveContext];
 }
 
 #pragma mark - UITableViewDataSource
@@ -69,7 +64,11 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.context deleteObject:[self.fetchController objectAtIndexPath:indexPath]];
+        MFFriend *removedFriend = [self.fetchController objectAtIndexPath:indexPath];
+        [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+            MFFriend *localFriend = [removedFriend MR_inContext:localContext];
+            [localFriend MR_deleteEntity];
+        }];
     }
 }
 
@@ -89,11 +88,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     switch(type) {
         case NSFetchedResultsChangeInsert:
             [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
-                             withRowAnimation:UITableViewRowAnimationFade];
+                                  withRowAnimation:UITableViewRowAnimationFade];
             break;
         case NSFetchedResultsChangeDelete:
             [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                             withRowAnimation:UITableViewRowAnimationFade];
+                                  withRowAnimation:UITableViewRowAnimationFade];
             break;
         case NSFetchedResultsChangeUpdate:
             [self configureCell:[self.tableView cellForRowAtIndexPath:indexPath]];
@@ -101,9 +100,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
             
         case NSFetchedResultsChangeMove:
             [self.tableView deleteRowsAtIndexPaths:[NSArray
-                                               arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                                                    arrayWithObject:indexPath]
+                                  withRowAnimation:UITableViewRowAnimationFade];
             [self.tableView insertRowsAtIndexPaths:[NSArray
-                                               arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                                                    arrayWithObject:newIndexPath]
+                                  withRowAnimation:UITableViewRowAnimationFade];
             break;
     }
 }
@@ -117,7 +118,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
                                            toView:self.tableView];
     NSIndexPath *tappedIP = [self.tableView indexPathForRowAtPoint:buttonPosition];
     MFFriend *forgivenFriend = [self.fetchController objectAtIndexPath:tappedIP];
-    forgivenFriend.friend = @YES;
+    [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
+        MFFriend *localFriend = [forgivenFriend MR_inContext:localContext];
+        localFriend.friend = @YES;
+    }];
 }
 
 - (void)configureCell:(MFTableViewCell *)cell {

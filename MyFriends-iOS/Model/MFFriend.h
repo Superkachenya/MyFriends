@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MFFriend : NSManagedObject
 
-+ (NSFetchedResultsController *)fetchedResultControllerWithFriend:(BOOL)flag;
++ (NSFetchedResultsController *)fetchWithMRFriend:(BOOL)friend;
 
 @end
 

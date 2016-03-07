@@ -7,20 +7,16 @@
 //
 
 #import "MFFriend.h"
-#import "MFPersistenceManager.h"
+#import <MagicalRecord/MagicalRecord.h>
 
 @implementation MFFriend
 
-+ (NSFetchedResultsController *)fetchedResultControllerWithFriend:(BOOL)flag {
-    NSManagedObjectContext *context = [MFPersistenceManager sharedManager].mainContext;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"MFFriend"];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"friend == %c", flag];
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"firstName" ascending:YES];
-    [fetchRequest setSortDescriptors:@[sortDescriptor]];
-    NSFetchedResultsController *results= [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                                                             managedObjectContext:context
-                                                                               sectionNameKeyPath:nil
-                                                                                        cacheName:nil];
++ (NSFetchedResultsController *)fetchWithMRFriend:(BOOL)friend {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"friend == %c", friend];
+    NSFetchedResultsController *results = [MFFriend MR_fetchAllGroupedBy:nil
+                                                           withPredicate:predicate
+                                                                sortedBy:@"firstName"
+                                                               ascending:YES];
     return results;
 }
 
