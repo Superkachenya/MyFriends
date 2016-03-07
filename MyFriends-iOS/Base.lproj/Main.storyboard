@@ -172,16 +172,16 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LGh-kM-nDM">
-                                                    <rect key="frame" x="285" y="15" width="70" height="30"/>
+                                                    <rect key="frame" x="316" y="0.0" width="59" height="59"/>
                                                     <color key="backgroundColor" red="0.21290212869644165" green="0.85732072591781616" blue="0.50236219167709351" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="N4s-Nt-la2"/>
-                                                        <constraint firstAttribute="width" constant="70" id="o0u-4N-OUj"/>
+                                                        <constraint firstAttribute="height" constant="59" id="N4s-Nt-la2"/>
+                                                        <constraint firstAttribute="width" constant="59" id="o0u-4N-OUj"/>
                                                     </constraints>
                                                     <state key="normal" title="Forgive"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="10"/>
+                                                            <integer key="value" value="30"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
@@ -190,7 +190,7 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="LGh-kM-nDM" secondAttribute="trailing" constant="20" id="5ce-rx-vcy"/>
+                                                <constraint firstAttribute="trailing" secondItem="LGh-kM-nDM" secondAttribute="trailing" id="5ce-rx-vcy"/>
                                                 <constraint firstAttribute="bottom" secondItem="Zta-o1-Svx" secondAttribute="bottom" id="8AY-Vz-JJK"/>
                                                 <constraint firstAttribute="bottom" secondItem="AZE-9S-Rpg" secondAttribute="bottom" constant="10" id="CxM-j6-BcG"/>
                                                 <constraint firstAttribute="bottom" secondItem="aiG-dr-QVn" secondAttribute="bottom" constant="10" id="EKG-fn-gwc"/>
@@ -375,16 +375,16 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GnF-4Q-tuJ">
-                                                    <rect key="frame" x="285" y="15" width="70" height="30"/>
+                                                    <rect key="frame" x="316" y="0.0" width="59" height="59"/>
                                                     <color key="backgroundColor" red="0.21290212869644165" green="0.85732072591781616" blue="0.50236219167709351" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="70" id="5tc-6c-cN5"/>
-                                                        <constraint firstAttribute="height" constant="30" id="Ube-Wc-dLF"/>
+                                                        <constraint firstAttribute="width" constant="59" id="5tc-6c-cN5"/>
+                                                        <constraint firstAttribute="height" constant="59" id="Ube-Wc-dLF"/>
                                                     </constraints>
-                                                    <state key="normal" title="Add"/>
+                                                    <state key="normal" title="✔️"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="10"/>
+                                                            <integer key="value" value="30"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
@@ -397,7 +397,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="64a-Sb-jYq" secondAttribute="bottom" id="1jJ-aJ-X0H"/>
                                                 <constraint firstAttribute="bottom" secondItem="dPe-M3-leq" secondAttribute="bottom" constant="10" id="5cT-sc-ys6"/>
                                                 <constraint firstItem="wRD-Rn-J4J" firstAttribute="leading" secondItem="64a-Sb-jYq" secondAttribute="trailing" constant="20" id="AeE-pz-3LK"/>
-                                                <constraint firstAttribute="trailing" secondItem="GnF-4Q-tuJ" secondAttribute="trailing" constant="20" id="AoJ-Wz-PYm"/>
+                                                <constraint firstAttribute="trailing" secondItem="GnF-4Q-tuJ" secondAttribute="trailing" id="AoJ-Wz-PYm"/>
                                                 <constraint firstAttribute="bottom" secondItem="wRD-Rn-J4J" secondAttribute="bottom" constant="10" id="Bie-EE-cka"/>
                                                 <constraint firstItem="64a-Sb-jYq" firstAttribute="top" secondItem="ov6-lR-Rht" secondAttribute="top" id="PBA-Gh-Jfe"/>
                                                 <constraint firstItem="GnF-4Q-tuJ" firstAttribute="centerY" secondItem="ov6-lR-Rht" secondAttribute="centerY" id="Za0-Fp-ufG"/>

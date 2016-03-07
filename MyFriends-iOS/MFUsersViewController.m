@@ -79,13 +79,6 @@
     return cell;
 }
 
-#pragma mark - UITableViewDelegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-
-}
-
 - (IBAction)addUserButtonDidPress:(id)sender {
     CGPoint buttonPosition = [sender convertPoint:CGPointZero
                                            toView:self.tableView];

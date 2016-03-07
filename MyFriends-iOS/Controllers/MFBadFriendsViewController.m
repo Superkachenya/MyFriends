@@ -37,7 +37,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -62,11 +61,6 @@
 }
 
 #pragma mark - UITableViewDelegate
-
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-////    MFFriend *forgivenFriend = [self.fetchController objectAtIndexPath:indexPath];
-////    forgivenFriend.friend = @YES;
-//}
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
