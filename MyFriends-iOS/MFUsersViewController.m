@@ -82,7 +82,15 @@
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    MFUser *user = self.users[indexPath.row];
+    
+
+}
+
+- (IBAction)addUserButtonDidPress:(id)sender {
+    CGPoint buttonPosition = [sender convertPoint:CGPointZero
+                                           toView:self.tableView];
+    NSIndexPath *tappedIP = [self.tableView indexPathForRowAtPoint:buttonPosition];
+    MFUser *user = self.users[tappedIP.row];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"MFFriend"];
     fetchRequest.fetchLimit = 1;
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"email == %@",user.email];
@@ -100,13 +108,9 @@
         newFriend.photoThumbnail = user.photoThumbnail;
         newFriend.friend = @YES;
     }
-    [self.users removeObjectAtIndex:indexPath.row];
-    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+    [self.users removeObjectAtIndex:tappedIP.row];
+    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:tappedIP]
                           withRowAnimation:UITableViewRowAnimationFade];
-
-}
-
-- (IBAction)addUserButtonDidPress:(id)sender {
 }
 
 @end

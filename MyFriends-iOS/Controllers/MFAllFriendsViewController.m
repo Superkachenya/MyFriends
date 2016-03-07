@@ -135,8 +135,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)configureCell:(MFTableViewCell *)cell {
-    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-    MFFriend *friend = [self.fetchController objectAtIndexPath:indexPath];
+    MFFriend *friend = [self.fetchController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
     [cell configureCellWithFriend:friend];
 }
 

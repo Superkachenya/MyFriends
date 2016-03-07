@@ -63,10 +63,10 @@
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    MFFriend *forgivenFriend = [self.fetchController objectAtIndexPath:indexPath];
-    forgivenFriend.friend = @YES;
-}
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+////    MFFriend *forgivenFriend = [self.fetchController objectAtIndexPath:indexPath];
+////    forgivenFriend.friend = @YES;
+//}
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
@@ -119,12 +119,15 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (IBAction)forgiveButtonDidPress:(id)sender {
-    
+    CGPoint buttonPosition = [sender convertPoint:CGPointZero
+                                           toView:self.tableView];
+    NSIndexPath *tappedIP = [self.tableView indexPathForRowAtPoint:buttonPosition];
+    MFFriend *forgivenFriend = [self.fetchController objectAtIndexPath:tappedIP];
+    forgivenFriend.friend = @YES;
 }
 
 - (void)configureCell:(MFTableViewCell *)cell {
-    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-    MFFriend *friend = [self.fetchController objectAtIndexPath:indexPath];
+    MFFriend *friend = [self.fetchController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
     [cell configureCellWithFriend:friend];
 }
 
