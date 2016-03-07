@@ -9,6 +9,7 @@
 #import "MFNetworkManager.h"
 #import "AFNetworking.h"
 #import "MFUser.h"
+#import "FastEasyMapping.h"
 
 NSString *const url = @"http://api.randomuser.me/?results=100";
 
@@ -24,18 +25,13 @@ NSString *const url = @"http://api.randomuser.me/?results=100";
                 NSArray *results = responseObject[@"results"];
                 for (id randomUser in results) {
                     NSDictionary *currentUser = (NSDictionary *)randomUser[@"user"];
-                    MFUser *user = [MFUser new];
-                    user.email = currentUser[@"email"];
-                    user.phone = currentUser[@"cell"];
-                    user.firstName = currentUser[@"name"][@"first"];
-                    user.lastName = currentUser[@"name"][@"last"];
-                    user.photoLarge = currentUser[@"picture"][@"large"];
-                    user.photoThumbnail = currentUser[@"picture"][@"thumbnail"];
+                    FEMMapping *mapping = [MFUser defaultMapping];
+                    MFUser *user = [FEMDeserializer objectFromRepresentation:currentUser mapping:mapping];
                     [users addObject:user];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        copyBlock (nil, users);
-                    });
                 }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    copyBlock (nil, users);
+                });
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"%@", error);

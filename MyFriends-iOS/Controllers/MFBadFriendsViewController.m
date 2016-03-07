@@ -82,7 +82,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 #pragma mark - NSFetchedResultsControllerDelegate
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
     [self.tableView beginUpdates];
 }
 
@@ -93,22 +92,40 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
      forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath {
     
-    UITableView *tableView = self.tableView;
     switch(type) {
         case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
                              withRowAnimation:UITableViewRowAnimationFade];
             break;
         case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                              withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        case NSFetchedResultsChangeUpdate:
+            [self configureCell:[self.tableView cellForRowAtIndexPath:indexPath]];
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            [self.tableView deleteRowsAtIndexPaths:[NSArray
+                                               arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView insertRowsAtIndexPaths:[NSArray
+                                               arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
     }
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
     [self.tableView endUpdates];
+}
+
+- (IBAction)forgiveButtonDidPress:(id)sender {
+    
+}
+
+- (void)configureCell:(MFTableViewCell *)cell {
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    MFFriend *friend = [self.fetchController objectAtIndexPath:indexPath];
+    [cell configureCellWithFriend:friend];
 }
 
 @end

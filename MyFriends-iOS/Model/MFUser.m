@@ -7,7 +7,19 @@
 //
 
 #import "MFUser.h"
+#import "FastEasyMapping.h"
 
 @implementation MFUser
+
++ (FEMMapping *)defaultMapping {
+    FEMMapping *mapping = [[FEMMapping alloc] initWithObjectClass:[MFUser class]];
+    [mapping addAttributesFromArray:@[@"email"]];
+    [mapping addAttributesFromArray:@[@"phone"]];
+    [mapping addAttributeWithProperty:@"firstName" keyPath:@"name.first"];
+    [mapping addAttributeWithProperty:@"lastName" keyPath:@"name.last"];
+    [mapping addAttributeWithProperty:@"photoLarge" keyPath:@"picture.large"];
+    [mapping addAttributeWithProperty:@"photoThumbnail" keyPath:@"picture.thumbnail"];
+    return mapping;
+}
 
 @end

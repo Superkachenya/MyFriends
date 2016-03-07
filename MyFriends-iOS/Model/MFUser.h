@@ -7,13 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+@class FEMMapping;
 
 @interface MFUser : NSObject
 
 @property (strong, nonatomic) NSString *email;
+@property (strong, nonatomic) NSString *phone;
 @property (strong, nonatomic) NSString *firstName;
 @property (strong, nonatomic) NSString *lastName;
-@property (strong, nonatomic) NSString *phone;
 @property (strong, nonatomic) NSString *photoLarge;
 @property (strong, nonatomic) NSString *photoThumbnail;
+
++ (FEMMapping *)defaultMapping;
+
 @end

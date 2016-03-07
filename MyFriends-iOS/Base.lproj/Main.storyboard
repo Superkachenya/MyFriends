@@ -146,7 +146,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="badFriendCell" rowHeight="60" id="Whu-3w-EyX" customClass="MFTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="badFriendCell" rowHeight="60" id="Whu-3w-EyX" customClass="MFTableViewCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Whu-3w-EyX" id="COd-kY-LVx">
@@ -171,8 +171,26 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LGh-kM-nDM">
+                                                    <rect key="frame" x="285" y="15" width="70" height="30"/>
+                                                    <color key="backgroundColor" red="0.21290212869644165" green="0.85732072591781616" blue="0.50236219167709351" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="N4s-Nt-la2"/>
+                                                        <constraint firstAttribute="width" constant="70" id="o0u-4N-OUj"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Forgive"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="10"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="forgiveButtonDidPress:" destination="oQp-db-czN" eventType="touchUpInside" id="rWC-st-lkQ"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="LGh-kM-nDM" secondAttribute="trailing" constant="20" id="5ce-rx-vcy"/>
                                                 <constraint firstAttribute="bottom" secondItem="Zta-o1-Svx" secondAttribute="bottom" id="8AY-Vz-JJK"/>
                                                 <constraint firstAttribute="bottom" secondItem="AZE-9S-Rpg" secondAttribute="bottom" constant="10" id="CxM-j6-BcG"/>
                                                 <constraint firstAttribute="bottom" secondItem="aiG-dr-QVn" secondAttribute="bottom" constant="10" id="EKG-fn-gwc"/>
@@ -180,6 +198,7 @@
                                                 <constraint firstItem="Zta-o1-Svx" firstAttribute="top" secondItem="COd-kY-LVx" secondAttribute="top" id="GCf-8C-RuJ"/>
                                                 <constraint firstItem="aiG-dr-QVn" firstAttribute="leading" secondItem="Zta-o1-Svx" secondAttribute="trailing" constant="20" id="MIP-Hh-Ew8"/>
                                                 <constraint firstItem="AZE-9S-Rpg" firstAttribute="leading" secondItem="aiG-dr-QVn" secondAttribute="trailing" constant="5" id="Wl1-rs-Nc9"/>
+                                                <constraint firstItem="LGh-kM-nDM" firstAttribute="centerY" secondItem="COd-kY-LVx" secondAttribute="centerY" id="qlO-6t-wK5"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -355,13 +374,33 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GnF-4Q-tuJ">
+                                                    <rect key="frame" x="285" y="15" width="70" height="30"/>
+                                                    <color key="backgroundColor" red="0.21290212869644165" green="0.85732072591781616" blue="0.50236219167709351" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="70" id="5tc-6c-cN5"/>
+                                                        <constraint firstAttribute="height" constant="30" id="Ube-Wc-dLF"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Add"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="10"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="addUserButtonDidPress:" destination="AXw-0I-VXT" eventType="touchUpInside" id="SOC-dw-zHd"/>
+                                                        <action selector="forgiveButtonDidPress:" destination="oQp-db-czN" eventType="touchUpInside" id="akj-o6-Qmo"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="64a-Sb-jYq" secondAttribute="bottom" id="1jJ-aJ-X0H"/>
                                                 <constraint firstAttribute="bottom" secondItem="dPe-M3-leq" secondAttribute="bottom" constant="10" id="5cT-sc-ys6"/>
                                                 <constraint firstItem="wRD-Rn-J4J" firstAttribute="leading" secondItem="64a-Sb-jYq" secondAttribute="trailing" constant="20" id="AeE-pz-3LK"/>
+                                                <constraint firstAttribute="trailing" secondItem="GnF-4Q-tuJ" secondAttribute="trailing" constant="20" id="AoJ-Wz-PYm"/>
                                                 <constraint firstAttribute="bottom" secondItem="wRD-Rn-J4J" secondAttribute="bottom" constant="10" id="Bie-EE-cka"/>
                                                 <constraint firstItem="64a-Sb-jYq" firstAttribute="top" secondItem="ov6-lR-Rht" secondAttribute="top" id="PBA-Gh-Jfe"/>
+                                                <constraint firstItem="GnF-4Q-tuJ" firstAttribute="centerY" secondItem="ov6-lR-Rht" secondAttribute="centerY" id="Za0-Fp-ufG"/>
                                                 <constraint firstItem="dPe-M3-leq" firstAttribute="leading" secondItem="wRD-Rn-J4J" secondAttribute="trailing" constant="5" id="gW3-9w-zfu"/>
                                                 <constraint firstItem="64a-Sb-jYq" firstAttribute="leading" secondItem="ov6-lR-Rht" secondAttribute="leading" constant="10" id="pI0-SM-icO"/>
                                             </constraints>

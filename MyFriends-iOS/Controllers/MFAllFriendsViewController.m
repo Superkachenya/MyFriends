@@ -116,11 +116,28 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
             [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                                   withRowAnimation:UITableViewRowAnimationFade];
             break;
+        case NSFetchedResultsChangeUpdate:
+            [self configureCell:[self.tableView cellForRowAtIndexPath:indexPath]];
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            [self.tableView deleteRowsAtIndexPaths:[NSArray
+                                               arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView insertRowsAtIndexPaths:[NSArray
+                                               arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+
     }
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView endUpdates];
+}
+
+- (void)configureCell:(MFTableViewCell *)cell {
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    MFFriend *friend = [self.fetchController objectAtIndexPath:indexPath];
+    [cell configureCellWithFriend:friend];
 }
 
 @end
