@@ -30,14 +30,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self getRandomUsers];
-    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
+    [self getMoreRandomUsers];
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.backgroundColor = [UIColor cyanColor];
     self.refreshControl.tintColor = [UIColor purpleColor];
     [self.tableView addSubview:self.refreshControl];
     [self.refreshControl addTarget:self
-                            action:@selector(getRandomUsers)
+                            action:@selector(getMoreRandomUsers)
                   forControlEvents:UIControlEventValueChanged];
 }
 
@@ -85,7 +84,10 @@
                           withRowAnimation:UITableViewRowAnimationFade];
 }
 
-- (void)getRandomUsers {
+- (void)getMoreRandomUsers {
+    if (!self.refreshControl) {
+        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
+    }
     [MFNetworkManager showRandomUsersWithCompletionBlock:^(NSError *error, NSMutableArray *users) {
         if (error) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error!"
@@ -101,9 +103,11 @@
             [self presentViewController:alert animated:YES completion:nil];
         } else {
             self.users = users;
-            [self.tableView reloadData];
+            if (self.refreshControl) {
+                [self.refreshControl endRefreshing];
+            }
             [SVProgressHUD dismiss];
-            [self.refreshControl endRefreshing];
+            [self.tableView reloadData];
         }
     }];
     
