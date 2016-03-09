@@ -19,6 +19,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *users;
 @property (strong, nonatomic) UIAlertController *alertController;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
+
 
 @end
 
@@ -28,26 +30,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self getRandomUsers];
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
-    [MFNetworkManager showRandomUsersWithCompletionBlock:^(NSError *error, NSMutableArray *users) {
-        if (error) {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error!"
-                                                                           message:error.localizedDescription
-                                                                    preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
-                                                             style:UIAlertActionStyleDefault
-                                                           handler:^(UIAlertAction * _Nonnull action) {
-                                                               [alert dismissViewControllerAnimated:YES
-                                                                                         completion:nil];
-                                                           }];
-            [alert addAction:cancel];
-            [self presentViewController:alert animated:YES completion:nil];
-        } else {
-            self.users = users;
-            [self.tableView reloadData];
-            [SVProgressHUD dismiss];
-        }
-    }];
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.backgroundColor = [UIColor cyanColor];
+    self.refreshControl.tintColor = [UIColor purpleColor];
+    [self.tableView addSubview:self.refreshControl];
+    [self.refreshControl addTarget:self
+                            action:@selector(getRandomUsers)
+                  forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -92,6 +83,30 @@
     [self.users removeObjectAtIndex:tappedIP.row];
     [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:tappedIP]
                           withRowAnimation:UITableViewRowAnimationFade];
+}
+
+- (void)getRandomUsers {
+    [MFNetworkManager showRandomUsersWithCompletionBlock:^(NSError *error, NSMutableArray *users) {
+        if (error) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error!"
+                                                                           message:error.localizedDescription
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * _Nonnull action) {
+                                                               [alert dismissViewControllerAnimated:YES
+                                                                                         completion:nil];
+                                                           }];
+            [alert addAction:cancel];
+            [self presentViewController:alert animated:YES completion:nil];
+        } else {
+            self.users = users;
+            [self.tableView reloadData];
+            [SVProgressHUD dismiss];
+            [self.refreshControl endRefreshing];
+        }
+    }];
+    
 }
 
 @end
