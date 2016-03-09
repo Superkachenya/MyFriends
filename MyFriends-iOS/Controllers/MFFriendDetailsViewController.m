@@ -56,11 +56,6 @@
     self.lastName.text = self.friend.lastName;
     self.email.text = self.friend.email;
     self.phone.text = self.friend.phone;
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:YES];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWasShown:)
                                                  name:UIKeyboardWillShowNotification
@@ -81,6 +76,7 @@
                                                     name:UIKeyboardWillHideNotification
                                                   object:nil];
 }
+
 #pragma mark - BarButtons methods
 
 - (IBAction)cancelButtonDidPress:(id)sender {

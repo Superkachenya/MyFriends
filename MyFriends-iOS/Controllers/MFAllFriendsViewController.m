@@ -48,11 +48,6 @@
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:YES];
-    
-    }
-
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -96,7 +91,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     }
 }
 
-
 #pragma mark - NSFetchedResultsControllerDelegate
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
@@ -135,6 +129,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView endUpdates];
 }
+
+#pragma mark - Custom methods
 
 - (void)configureCell:(MFTableViewCell *)cell {
     MFFriend *friend = [self.fetchController objectAtIndexPath:self.tableView.indexPathForSelectedRow];

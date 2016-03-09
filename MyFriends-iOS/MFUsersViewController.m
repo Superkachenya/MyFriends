@@ -64,6 +64,8 @@
     return cell;
 }
 
+#pragma mark - Custom methods
+
 - (IBAction)addUserButtonDidPress:(id)sender {
     CGPoint buttonPosition = [sender convertPoint:CGPointZero
                                            toView:self.tableView];

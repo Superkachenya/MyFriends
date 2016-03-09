@@ -12,6 +12,7 @@
 #import "MFFriend.h"
 
 @interface MFBadFriendsViewController () <NSFetchedResultsControllerDelegate>
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSFetchedResultsController *fetchController;
 @property (strong, nonatomic) NSManagedObjectContext *context;
@@ -33,11 +34,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:YES];
-    
 }
 
 #pragma mark - UITableViewDataSource
@@ -108,6 +104,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
             break;
     }
 }
+
+#pragma mark - Custom methods
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView endUpdates];
