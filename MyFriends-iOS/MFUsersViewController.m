@@ -67,6 +67,8 @@
 
 - (IBAction)addUserButtonDidPress:(UIButton *)sender {
     MFUser *user = self.users[sender.tag];
+    NSLog(@"%ld",(long)sender.tag);
+    NSLog(@"%lu",(unsigned long)[self.users count]);
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
         [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
             MFFriend *newFriend = [MFFriend MR_createEntityInContext:localContext];
@@ -110,15 +112,6 @@
         }
     }];
     
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView
-                  willDecelerate:(BOOL)decelerate {
-    CGFloat actualPosition = scrollView.contentOffset.y;
-    CGFloat contentHeight = scrollView.contentSize.height - (self.tableView.frame.size.height);
-    if (actualPosition >= contentHeight) {
-        NSLog(@"BLABLABLA");
-    }
 }
 
 @end
