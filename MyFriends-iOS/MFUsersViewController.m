@@ -21,7 +21,6 @@
 @property (strong, nonatomic) UIAlertController *alertController;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
-
 @end
 
 @implementation MFUsersViewController
@@ -60,29 +59,27 @@
     NSString *const reuseIdentifier = @"userCell";
     MFTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
     MFUser *user = self.users[indexPath.row];
-    [cell configureCellWithUser:user];
+    [cell configureCellWithUser:user atRow:indexPath.row];
     return cell;
 }
 
 #pragma mark - Custom methods
 
-- (IBAction)addUserButtonDidPress:(id)sender {
-    CGPoint buttonPosition = [sender convertPoint:CGPointZero
-                                           toView:self.tableView];
-    NSIndexPath *tappedIP = [self.tableView indexPathForRowAtPoint:buttonPosition];
-    MFUser *user = self.users[tappedIP.row];
-    [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
-        MFFriend *newFriend = [MFFriend MR_createEntityInContext:localContext];
-        newFriend.firstName = user.firstName;
-        newFriend.lastName = user.lastName;
-        newFriend.email = user.email;
-        newFriend.phone = user.phone;
-        newFriend.photoLarge = user.photoLarge;
-        newFriend.photoThumbnail = user.photoThumbnail;
-        newFriend.friend = @YES;
-    }];
-    [self.users removeObjectAtIndex:tappedIP.row];
-    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:tappedIP]
+- (IBAction)addUserButtonDidPress:(UIButton *)sender {
+    MFUser *user = self.users[sender.tag];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
+        [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
+            MFFriend *newFriend = [MFFriend MR_createEntityInContext:localContext];
+            newFriend.firstName = user.firstName;
+            newFriend.lastName = user.lastName;
+            newFriend.email = user.email;
+            newFriend.phone = user.phone;
+            newFriend.photoLarge = user.photoLarge;
+            newFriend.photoThumbnail = user.photoThumbnail;
+            newFriend.friend = @YES;
+        }];
+        [self.users removeObjectAtIndex:sender.tag];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath]
                           withRowAnimation:UITableViewRowAnimationFade];
 }
 

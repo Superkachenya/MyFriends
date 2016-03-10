@@ -47,7 +47,7 @@
     NSString *const reuseIdentifier = @"badFriendCell";
     MFTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
     MFFriend *friend = [self.fetchController objectAtIndexPath:indexPath];
-    [cell configureCellWithFriend:friend];
+    [cell configureCellWithFriend:friend atRow:indexPath.row];
     return cell;
 }
 
@@ -111,11 +111,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView endUpdates];
 }
 
-- (IBAction)forgiveButtonDidPress:(id)sender {
-    CGPoint buttonPosition = [sender convertPoint:CGPointZero
-                                           toView:self.tableView];
-    NSIndexPath *tappedIP = [self.tableView indexPathForRowAtPoint:buttonPosition];
-    MFFriend *forgivenFriend = [self.fetchController objectAtIndexPath:tappedIP];
+- (IBAction)forgiveButtonDidPress:(UIButton *)sender {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
+    MFFriend *forgivenFriend = [self.fetchController objectAtIndexPath:indexPath];
     [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
         MFFriend *localFriend = [forgivenFriend MR_inContext:localContext];
         localFriend.friend = @YES;
@@ -123,8 +121,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)configureCell:(MFTableViewCell *)cell {
-    MFFriend *friend = [self.fetchController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
-    [cell configureCellWithFriend:friend];
+    NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
+    MFFriend *friend = [self.fetchController objectAtIndexPath:indexPath];
+    [cell configureCellWithFriend:friend atRow:indexPath.row];
 }
 
 @end

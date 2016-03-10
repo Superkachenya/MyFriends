@@ -59,7 +59,7 @@
     NSString *const reuseIdentifier = @"friendCell";
     MFTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
     MFFriend *friend = [self.fetchController objectAtIndexPath:indexPath];
-    [cell configureCellWithFriend:friend];
+    [cell configureCellWithFriend:friend atRow:indexPath.row];
     return cell;
 }
 
@@ -77,7 +77,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
             MFFriend *localFriend = [badFriend MR_inContext:localContext];
             localFriend.friend = @NO;
         }];
-
+        
     }
 }
 
@@ -116,13 +116,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
             
         case NSFetchedResultsChangeMove:
             [self.tableView deleteRowsAtIndexPaths:[NSArray
-                                               arrayWithObject:indexPath]
+                                                    arrayWithObject:indexPath]
                                   withRowAnimation:UITableViewRowAnimationFade];
             [self.tableView insertRowsAtIndexPaths:[NSArray
-                                               arrayWithObject:newIndexPath]
+                                                    arrayWithObject:newIndexPath]
                                   withRowAnimation:UITableViewRowAnimationFade];
             break;
-
+            
     }
 }
 
@@ -133,8 +133,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 #pragma mark - Custom methods
 
 - (void)configureCell:(MFTableViewCell *)cell {
-    MFFriend *friend = [self.fetchController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
-    [cell configureCellWithFriend:friend];
+    NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
+    MFFriend *friend = [self.fetchController objectAtIndexPath:indexPath];
+    [cell configureCellWithFriend:friend atRow:indexPath.row];
 }
 
 @end

@@ -11,11 +11,7 @@
 
 @interface MFTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *userPhoto;
-@property (weak, nonatomic) IBOutlet UILabel *firstName;
-@property (weak, nonatomic) IBOutlet UILabel *lastName;
-
-- (void)configureCellWithFriend:(MFFriend *)friend;
-- (void)configureCellWithUser:(MFUser *)user;
+- (void)configureCellWithFriend:(MFFriend *)friend atRow:(NSInteger)row ;
+- (void)configureCellWithUser:(MFUser *)user atRow:(NSInteger)row;
 
 @end
