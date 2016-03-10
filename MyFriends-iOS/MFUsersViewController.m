@@ -112,4 +112,13 @@
     
 }
 
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView
+                  willDecelerate:(BOOL)decelerate {
+    CGFloat actualPosition = scrollView.contentOffset.y;
+    CGFloat contentHeight = scrollView.contentSize.height - (self.tableView.frame.size.height);
+    if (actualPosition >= contentHeight) {
+        NSLog(@"BLABLABLA");
+    }
+}
+
 @end

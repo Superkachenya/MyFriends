@@ -11,7 +11,7 @@
 #import "MFUser.h"
 #import "FastEasyMapping.h"
 
-NSString *const url = @"http://api.randomuser.me/?results=100";
+NSString *const url = @"http://api.randomuser.me/?results=15";
 
 @implementation MFNetworkManager
 

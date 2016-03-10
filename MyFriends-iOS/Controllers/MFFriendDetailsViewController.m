@@ -21,6 +21,8 @@
 @property (weak, nonatomic) IBOutlet TSValidatedTextField *email;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraint;
+@property (assign, nonatomic) CGFloat layoutConstant;
 
 @end
 
@@ -39,6 +41,7 @@
     self.userPhoto.layer.borderColor = [UIColor purpleColor].CGColor;
     self.phone.delegate = self;
     self.email.delegate = self;
+    self.layoutConstant = self.bottomConstraint.constant;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -150,15 +153,13 @@
 - (void)keyboardWasShown:(NSNotification*)notification {
     NSDictionary* info = [notification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
-    self.scrollView.contentInset = contentInsets;
-    self.scrollView.scrollIndicatorInsets = contentInsets;
+    self.bottomConstraint.constant = kbSize.height /2;
+
 }
 
 - (void)keyboardWillBeHidden:(NSNotification*)notification {
-    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
-    self.scrollView.contentInset = contentInsets;
-    self.scrollView.scrollIndicatorInsets = contentInsets;
+    self.bottomConstraint.constant = self.layoutConstant;
+
 }
 
 @end
