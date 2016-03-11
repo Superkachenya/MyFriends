@@ -13,6 +13,7 @@
 
 @interface MFTableViewCell ()
 
+@property (copy, nonatomic) GreenButtonDidPress didTapButtonBlock;
 @property (weak, nonatomic) IBOutlet UIImageView *userPhoto;
 @property (weak, nonatomic) IBOutlet UILabel *firstName;
 @property (weak, nonatomic) IBOutlet UILabel *lastName;
@@ -31,24 +32,30 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 
-- (void)configureCellWithFriend:(MFFriend *)friend atRow:(NSInteger)row {
+- (void)configureCellWithFriend:(MFFriend *)friend actionBlock:(GreenButtonDidPress)block{
     NSURL *url = [NSURL URLWithString:friend.photoThumbnail];
     [self.userPhoto sd_setImageWithURL:url];
     self.firstName.text = friend.firstName;
     self.lastName.text = friend.lastName;
-    self.greenButton.tag = row;
+    self.didTapButtonBlock = block;
 }
 
-- (void)configureCellWithUser:(MFUser *)user atRow:(NSInteger)row {
+- (void)configureCellWithUser:(MFUser *)user actionBlock:(GreenButtonDidPress)block{
     NSURL *url = [NSURL URLWithString:user.photoThumbnail];
     [self.userPhoto sd_setImageWithURL:url];
     self.firstName.text = user.firstName;
     self.lastName.text = user.lastName;
-    self.greenButton.tag = row;
+    self.didTapButtonBlock = block;
+}
+
+- (IBAction)addButtonDidPress:(id)sender {
+    if (self.didTapButtonBlock) {
+        self.didTapButtonBlock(sender);
+    }
 }
 
 @end

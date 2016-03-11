@@ -59,7 +59,7 @@
     NSString *const reuseIdentifier = @"friendCell";
     MFTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
     MFFriend *friend = [self.fetchController objectAtIndexPath:indexPath];
-    [cell configureCellWithFriend:friend atRow:indexPath.row];
+    [cell configureCellWithFriend:friend actionBlock:nil];
     return cell;
 }
 
@@ -135,7 +135,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 - (void)configureCell:(MFTableViewCell *)cell {
     NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
     MFFriend *friend = [self.fetchController objectAtIndexPath:indexPath];
-    [cell configureCellWithFriend:friend atRow:indexPath.row];
+    [cell configureCellWithFriend:friend actionBlock:nil];
 }
 
 @end

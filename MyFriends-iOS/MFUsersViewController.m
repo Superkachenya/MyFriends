@@ -20,6 +20,7 @@
 @property (strong, nonatomic) NSMutableArray *users;
 @property (strong, nonatomic) UIAlertController *alertController;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
+@property (strong, nonatomic) MFTableViewCell *cell;
 
 @end
 
@@ -57,19 +58,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *const reuseIdentifier = @"userCell";
-    MFTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
+    self.cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
     MFUser *user = self.users[indexPath.row];
-    [cell configureCellWithUser:user atRow:indexPath.row];
-    return cell;
-}
-
-#pragma mark - Custom methods
-
-- (IBAction)addUserButtonDidPress:(UIButton *)sender {
-    MFUser *user = self.users[sender.tag];
-    NSLog(@"%ld",(long)sender.tag);
-    NSLog(@"%lu",(unsigned long)[self.users count]);
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
+    __weak MFUsersViewController *weakSelf = self;
+    [self.cell configureCellWithUser:user actionBlock:^(id sender) {
         [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
             MFFriend *newFriend = [MFFriend MR_createEntityInContext:localContext];
             newFriend.firstName = user.firstName;
@@ -80,10 +72,15 @@
             newFriend.photoThumbnail = user.photoThumbnail;
             newFriend.friend = @YES;
         }];
-        [self.users removeObjectAtIndex:sender.tag];
-    [self.tableView deleteRowsAtIndexPaths:@[indexPath]
-                          withRowAnimation:UITableViewRowAnimationFade];
+        [weakSelf.users removeObjectAtIndex:indexPath.row];
+        [weakSelf.tableView deleteRowsAtIndexPaths:@[indexPath]
+                                  withRowAnimation:UITableViewRowAnimationFade];
+        [weakSelf.tableView reloadData];
+    }];
+    return self.cell;
 }
+
+#pragma mark - Network connection
 
 - (void)getMoreRandomUsers {
     if (!self.refreshControl) {

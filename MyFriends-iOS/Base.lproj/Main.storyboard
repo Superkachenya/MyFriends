@@ -185,7 +185,7 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
-                                                        <action selector="forgiveButtonDidPress:" destination="oQp-db-czN" eventType="touchUpInside" id="rWC-st-lkQ"/>
+                                                        <action selector="addButtonDidPress:" destination="Whu-3w-EyX" eventType="touchUpInside" id="4WA-LV-MRZ"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -416,7 +416,7 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
-                                                        <action selector="addUserButtonDidPress:" destination="AXw-0I-VXT" eventType="touchUpInside" id="SOC-dw-zHd"/>
+                                                        <action selector="addButtonDidPress:" destination="aPx-Us-ooD" eventType="touchUpInside" id="ESp-oW-1lc"/>
                                                     </connections>
                                                 </button>
                                             </subviews>

@@ -47,7 +47,14 @@
     NSString *const reuseIdentifier = @"badFriendCell";
     MFTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
     MFFriend *friend = [self.fetchController objectAtIndexPath:indexPath];
-    [cell configureCellWithFriend:friend atRow:indexPath.row];
+    [cell configureCellWithFriend:friend actionBlock:^(id sender) {
+        MFFriend *forgivenFriend = [self.fetchController objectAtIndexPath:indexPath];
+        [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
+            MFFriend *localFriend = [forgivenFriend MR_inContext:localContext];
+            localFriend.friend = @YES;
+        }];
+
+    }];
     return cell;
 }
 
@@ -89,6 +96,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         case NSFetchedResultsChangeDelete:
             [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                                   withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView reloadData];
             break;
         case NSFetchedResultsChangeUpdate:
             [self configureCell:[self.tableView cellForRowAtIndexPath:indexPath]];
@@ -111,19 +119,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView endUpdates];
 }
 
-- (IBAction)forgiveButtonDidPress:(UIButton *)sender {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
-    MFFriend *forgivenFriend = [self.fetchController objectAtIndexPath:indexPath];
-    [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
-        MFFriend *localFriend = [forgivenFriend MR_inContext:localContext];
-        localFriend.friend = @YES;
-    }];
-}
-
 - (void)configureCell:(MFTableViewCell *)cell {
     NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
     MFFriend *friend = [self.fetchController objectAtIndexPath:indexPath];
-    [cell configureCellWithFriend:friend atRow:indexPath.row];
+    [cell configureCellWithFriend:friend actionBlock:nil];
 }
 
 @end

@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 @class MFFriend, MFUser;
 
+typedef void(^GreenButtonDidPress)(id sender);
+
 @interface MFTableViewCell : UITableViewCell
 
-- (void)configureCellWithFriend:(MFFriend *)friend atRow:(NSInteger)row ;
-- (void)configureCellWithUser:(MFUser *)user atRow:(NSInteger)row;
+- (void)configureCellWithFriend:(MFFriend *)friend actionBlock:(GreenButtonDidPress)block;
+- (void)configureCellWithUser:(MFUser *)user actionBlock:(GreenButtonDidPress)block;
 
 @end
