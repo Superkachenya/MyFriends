@@ -112,10 +112,9 @@
     
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView_
-{
-    CGFloat actualPosition = scrollView_.contentOffset.y;
-    CGFloat contentHeight = scrollView_.contentSize.height - (self.tableView.frame.size.height);
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat actualPosition = scrollView.contentOffset.y;
+    CGFloat contentHeight = scrollView.contentSize.height - (self.tableView.frame.size.height);
     if (actualPosition >= contentHeight) {
         [self getMoreRandomUsers];
     }

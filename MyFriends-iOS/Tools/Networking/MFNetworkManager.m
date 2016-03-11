@@ -21,7 +21,6 @@ NSString *const url = @"http://api.randomuser.me/?results=20";
     [manager GET:url parameters:nil
         progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             if ([responseObject isKindOfClass: [NSDictionary class]]) {
-                NSLog(@"@");
                 NSMutableArray *users = [NSMutableArray new];
                 NSArray *results = responseObject[@"results"];
                 for (id randomUser in results) {
