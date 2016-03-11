@@ -53,8 +53,7 @@
     [super viewWillAppear:YES];
     
     NSURL *url = [NSURL URLWithString:self.friend.photoLarge];
-    [self.userPhoto sd_setImageWithURL:url
-                      placeholderImage:[UIImage imageNamed:@"placeholder.jpg"]];
+    [self.userPhoto sd_setImageWithURL:url];
     self.firstName.text = self.friend.firstName;
     self.lastName.text = self.friend.lastName;
     self.email.text = self.friend.email;

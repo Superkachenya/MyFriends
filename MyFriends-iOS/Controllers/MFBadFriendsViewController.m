@@ -81,7 +81,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView beginUpdates];
 }
 
-
 - (void)controller:(NSFetchedResultsController *)controller
    didChangeObject:(id)anObject
        atIndexPath:(NSIndexPath *)indexPath
@@ -113,11 +112,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     }
 }
 
-#pragma mark - Custom methods
-
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView endUpdates];
 }
+
+#pragma mark - Custom methods
 
 - (void)configureCell:(MFTableViewCell *)cell {
     NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;

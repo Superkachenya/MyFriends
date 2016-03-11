@@ -20,7 +20,6 @@
 @property (strong, nonatomic) NSMutableArray *users;
 @property (strong, nonatomic) UIAlertController *alertController;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
-@property (strong, nonatomic) MFTableViewCell *cell;
 
 @end
 
@@ -38,6 +37,7 @@
     [self.refreshControl addTarget:self
                             action:@selector(getMoreRandomUsers)
                   forControlEvents:UIControlEventValueChanged];
+    self.users = [NSMutableArray new];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -58,10 +58,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *const reuseIdentifier = @"userCell";
-    self.cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
+    MFTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
     MFUser *user = self.users[indexPath.row];
     __weak MFUsersViewController *weakSelf = self;
-    [self.cell configureCellWithUser:user actionBlock:^(id sender) {
+    [cell configureCellWithUser:user actionBlock:^(id sender) {
         [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
             MFFriend *newFriend = [MFFriend MR_createEntityInContext:localContext];
             newFriend.firstName = user.firstName;
@@ -77,7 +77,7 @@
                                   withRowAnimation:UITableViewRowAnimationFade];
         [weakSelf.tableView reloadData];
     }];
-    return self.cell;
+    return cell;
 }
 
 #pragma mark - Network connection
@@ -88,6 +88,7 @@
     }
     [MFNetworkManager showRandomUsersWithCompletionBlock:^(NSError *error, NSMutableArray *users) {
         if (error) {
+            [SVProgressHUD dismiss];
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error!"
                                                                            message:error.localizedDescription
                                                                     preferredStyle:UIAlertControllerStyleAlert];
@@ -100,7 +101,7 @@
             [alert addAction:cancel];
             [self presentViewController:alert animated:YES completion:nil];
         } else {
-            self.users = users;
+            [self.users addObjectsFromArray:users];
             if (self.refreshControl) {
                 [self.refreshControl endRefreshing];
             }
@@ -111,4 +112,12 @@
     
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView_
+{
+    CGFloat actualPosition = scrollView_.contentOffset.y;
+    CGFloat contentHeight = scrollView_.contentSize.height - (self.tableView.frame.size.height);
+    if (actualPosition >= contentHeight) {
+        [self getMoreRandomUsers];
+    }
+}
 @end

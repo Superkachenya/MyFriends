@@ -11,7 +11,7 @@
 #import "MFUser.h"
 #import "FastEasyMapping.h"
 
-NSString *const url = @"http://api.randomuser.me/?results=15";
+NSString *const url = @"http://api.randomuser.me/?results=20";
 
 @implementation MFNetworkManager
 
@@ -21,6 +21,7 @@ NSString *const url = @"http://api.randomuser.me/?results=15";
     [manager GET:url parameters:nil
         progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             if ([responseObject isKindOfClass: [NSDictionary class]]) {
+                NSLog(@"@");
                 NSMutableArray *users = [NSMutableArray new];
                 NSArray *results = responseObject[@"results"];
                 for (id randomUser in results) {
@@ -34,7 +35,6 @@ NSString *const url = @"http://api.randomuser.me/?results=15";
                 });
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog(@"%@", error);
             copyBlock(error, nil);
         }];
 }
