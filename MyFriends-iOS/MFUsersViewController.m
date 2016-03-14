@@ -21,7 +21,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *users;
 @property (strong, nonatomic) UIAlertController *alertController;
-@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
@@ -30,16 +29,8 @@
 #pragma mark - UIView lifecycle
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    [self getMoreRandomUsers];
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.backgroundColor = [UIColor cyanColor];
-    self.refreshControl.tintColor = [UIColor purpleColor];
-    [self.tableView addSubview:self.refreshControl];
-    [self.refreshControl addTarget:self
-                            action:@selector(getMoreRandomUsers)
-                  forControlEvents:UIControlEventValueChanged];
     self.users = [NSMutableArray new];
+    [self getMoreRandomUsers];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,11 +46,16 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.users count];
+    return self.users.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MFTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier forIndexPath:indexPath];
+    MFTableViewCell *cell = nil;
+    if (indexPath.row == self.users.count) {
+        cell = [self.tableView dequeueReusableCellWithIdentifier:kWaitForItIdentifier forIndexPath:indexPath];
+        [cell.activity startAnimating];
+    }
+    cell = [self.tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier forIndexPath:indexPath];
     MFUser *user = self.users[indexPath.row];
     __weak MFUsersViewController *weakSelf = self;
     FEMMapping *mapping = [MFFriend defaultMapping];
@@ -78,15 +74,16 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == [self.users count] - 1 ) {
+        [self getMoreRandomUsers];
+    }
+}
 #pragma mark - Network connection
 
 - (void)getMoreRandomUsers {
-    if (!self.refreshControl) {
-        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
-    }
     [MFNetworkManager showRandomUsersWithCompletionBlock:^(NSError *error, NSMutableArray *users) {
         if (error) {
-            [SVProgressHUD dismiss];
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error!"
                                                                            message:error.localizedDescription
                                                                     preferredStyle:UIAlertControllerStyleAlert];
@@ -100,21 +97,10 @@
             [self presentViewController:alert animated:YES completion:nil];
         } else {
             [self.users addObjectsFromArray:users];
-            if (self.refreshControl) {
-                [self.refreshControl endRefreshing];
-            }
-            [SVProgressHUD dismiss];
             [self.tableView reloadData];
         }
     }];
     
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    CGFloat actualPosition = scrollView.contentOffset.y;
-    CGFloat contentHeight = scrollView.contentSize.height - (self.tableView.frame.size.height);
-    if (actualPosition >= contentHeight) {
-        [self getMoreRandomUsers];
-    }
-}
 @end

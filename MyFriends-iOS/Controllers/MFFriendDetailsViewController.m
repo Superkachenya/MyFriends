@@ -154,8 +154,9 @@
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     NSNumber *durationValue = info[UIKeyboardAnimationDurationUserInfoKey];
     NSTimeInterval animationTime = durationValue.doubleValue;
+    self.changableConstraint.constant = kbSize.height;
     [UIView animateWithDuration:animationTime animations:^{
-        self.changableConstraint.constant = kbSize.height;
+        [self.view layoutIfNeeded];
     }];
 
 }
@@ -164,8 +165,9 @@
     NSDictionary* info = [notification userInfo];
     NSNumber *durationValue = info[UIKeyboardAnimationDurationUserInfoKey];
     NSTimeInterval animationTime = durationValue.doubleValue;
-    [UIView animateWithDuration:animationTime animations:^{
     self.changableConstraint.constant = self.layoutConstant;
+    [UIView animateWithDuration:animationTime animations:^{
+        [self.view layoutIfNeeded];
     }];
 }
 

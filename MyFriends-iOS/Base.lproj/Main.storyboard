@@ -440,6 +440,27 @@
                                             <outlet property="userPhoto" destination="64a-Sb-jYq" id="dVl-hO-seZ"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="kWaitForItIdentifier" rowHeight="60" id="h45-Ua-fH1" customClass="MFTableViewCell">
+                                        <rect key="frame" x="0.0" y="88" width="375" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h45-Ua-fH1" id="c3C-uP-Cy1">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="yoD-03-0tS">
+                                                    <rect key="frame" x="177" y="20" width="20" height="20"/>
+                                                    <color key="color" red="0.43666172027587891" green="0.086108185350894928" blue="0.72171008586883545" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="yoD-03-0tS" firstAttribute="centerY" secondItem="c3C-uP-Cy1" secondAttribute="centerY" id="IHh-6X-zCd"/>
+                                                <constraint firstItem="yoD-03-0tS" firstAttribute="centerX" secondItem="c3C-uP-Cy1" secondAttribute="centerX" id="KsZ-bb-g9d"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="activity" destination="yoD-03-0tS" id="fWz-qR-gJA"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="AXw-0I-VXT" id="JTZ-fp-8g7"/>

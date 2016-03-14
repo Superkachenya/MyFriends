@@ -13,6 +13,8 @@ typedef void(^GreenButtonDidPress)(id sender);
 
 @interface MFTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
+
 - (void)configureCellWithFriend:(MFFriend *)friend actionBlock:(GreenButtonDidPress)block;
 - (void)configureCellWithUser:(MFUser *)user actionBlock:(GreenButtonDidPress)block;
 

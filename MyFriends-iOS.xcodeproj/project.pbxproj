@@ -185,11 +185,19 @@
 			path = "MyFriends-iOSUITests";
 			sourceTree = "<group>";
 		};
-		8ECE059D1C86ED5300F5DAA6 /* Controllers */ = {
+		8EA626A51C9716BA001B83E4 /* StoryboardConstraints */ = {
 			isa = PBXGroup;
 			children = (
 				8EA626A11C96E098001B83E4 /* MFStoryboardConstants.h */,
 				8EA626A21C96E098001B83E4 /* MFStoryboardConstants.m */,
+			);
+			name = StoryboardConstraints;
+			sourceTree = "<group>";
+		};
+		8ECE059D1C86ED5300F5DAA6 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8EA626A51C9716BA001B83E4 /* StoryboardConstraints */,
 				8ECE059A1C86ED4800F5DAA6 /* MFAllFriendsViewController.h */,
 				8ECE059B1C86ED4800F5DAA6 /* MFAllFriendsViewController.m */,
 				8E9EECE61C887465006A0E8F /* MFBadFriendsViewController.h */,

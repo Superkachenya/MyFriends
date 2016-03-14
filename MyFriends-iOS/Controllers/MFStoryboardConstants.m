@@ -11,6 +11,7 @@
 NSString * const kUserCellIdentifier       = @"kUserIdentifier";
 NSString * const kBadFriendCellIdentifier  = @"kBadFriendCellIdentifier";
 NSString * const kAllFriendsCellIdentifier = @"kAllFriendsCellIdentifier";
+NSString * const kWaitForItIdentifier      = @"kWaitForItIdentifier";
 
 NSString * const toFriendDetailsVC         = @"toFriendDetailsVC";
 
