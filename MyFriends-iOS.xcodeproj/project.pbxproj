@@ -15,6 +15,7 @@
 		8E2DFF071C85F99300566825 /* MyFriends_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E2DFF061C85F99300566825 /* MyFriends_iOSTests.m */; };
 		8E2DFF121C85F99300566825 /* MyFriends_iOSUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E2DFF111C85F99300566825 /* MyFriends_iOSUITests.m */; };
 		8E9EECE81C887465006A0E8F /* MFBadFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9EECE71C887465006A0E8F /* MFBadFriendsViewController.m */; };
+		8EA626A31C96E098001B83E4 /* MFStoryboardConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA626A21C96E098001B83E4 /* MFStoryboardConstants.m */; };
 		8ECE059C1C86ED4800F5DAA6 /* MFAllFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE059B1C86ED4800F5DAA6 /* MFAllFriendsViewController.m */; };
 		8ECE05A01C86EECA00F5DAA6 /* MFTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE059F1C86EECA00F5DAA6 /* MFTableViewCell.m */; };
 		8ECE05A71C86F18600F5DAA6 /* MFFriendDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE05A61C86F18600F5DAA6 /* MFFriendDetailsViewController.m */; };
@@ -61,6 +62,8 @@
 		8E2DFF131C85F99300566825 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8E9EECE61C887465006A0E8F /* MFBadFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MFBadFriendsViewController.h; path = Controllers/MFBadFriendsViewController.h; sourceTree = "<group>"; };
 		8E9EECE71C887465006A0E8F /* MFBadFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MFBadFriendsViewController.m; path = Controllers/MFBadFriendsViewController.m; sourceTree = "<group>"; };
+		8EA626A11C96E098001B83E4 /* MFStoryboardConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MFStoryboardConstants.h; path = Controllers/MFStoryboardConstants.h; sourceTree = "<group>"; };
+		8EA626A21C96E098001B83E4 /* MFStoryboardConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MFStoryboardConstants.m; path = Controllers/MFStoryboardConstants.m; sourceTree = "<group>"; };
 		8ECE059A1C86ED4800F5DAA6 /* MFAllFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MFAllFriendsViewController.h; path = Controllers/MFAllFriendsViewController.h; sourceTree = "<group>"; };
 		8ECE059B1C86ED4800F5DAA6 /* MFAllFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MFAllFriendsViewController.m; path = Controllers/MFAllFriendsViewController.m; sourceTree = "<group>"; };
 		8ECE059E1C86EECA00F5DAA6 /* MFTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MFTableViewCell.h; path = Controllers/CustomCell/MFTableViewCell.h; sourceTree = "<group>"; };
@@ -185,6 +188,8 @@
 		8ECE059D1C86ED5300F5DAA6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8EA626A11C96E098001B83E4 /* MFStoryboardConstants.h */,
+				8EA626A21C96E098001B83E4 /* MFStoryboardConstants.m */,
 				8ECE059A1C86ED4800F5DAA6 /* MFAllFriendsViewController.h */,
 				8ECE059B1C86ED4800F5DAA6 /* MFAllFriendsViewController.m */,
 				8E9EECE61C887465006A0E8F /* MFBadFriendsViewController.h */,
@@ -447,6 +452,7 @@
 			files = (
 				8E2DFEF11C85F99300566825 /* AppDelegate.m in Sources */,
 				8ECE05BB1C8705A600F5DAA6 /* MFNetworkManager.m in Sources */,
+				8EA626A31C96E098001B83E4 /* MFStoryboardConstants.m in Sources */,
 				8E2DFEEE1C85F99300566825 /* main.m in Sources */,
 				8ECE05A71C86F18600F5DAA6 /* MFFriendDetailsViewController.m in Sources */,
 				8ECE06151C872E3800F5DAA6 /* MFUser.m in Sources */,

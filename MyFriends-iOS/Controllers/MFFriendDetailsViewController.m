@@ -33,8 +33,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.scrollView setContentOffset: CGPointMake(0, self.scrollView.contentOffset.y)];
-    self.scrollView.directionalLockEnabled = YES;
+//    [self.scrollView setContentOffset: CGPointMake(0, self.scrollView.contentOffset.y)];
+//    self.scrollView.directionalLockEnabled = YES;
     self.userPhoto.layer.cornerRadius = self.userPhoto.frame.size.width / 2;
     self.userPhoto.clipsToBounds = YES;
     self.userPhoto.layer.borderWidth = 1.0f;
@@ -152,13 +152,21 @@
 - (void)keyboardWasShown:(NSNotification*)notification {
     NSDictionary* info = [notification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    self.changableConstraint.constant = kbSize.height /2;
+    NSNumber *durationValue = info[UIKeyboardAnimationDurationUserInfoKey];
+    NSTimeInterval animationTime = durationValue.doubleValue;
+    [UIView animateWithDuration:animationTime animations:^{
+        self.changableConstraint.constant = kbSize.height;
+    }];
 
 }
 
 - (void)keyboardWillBeHidden:(NSNotification*)notification {
+    NSDictionary* info = [notification userInfo];
+    NSNumber *durationValue = info[UIKeyboardAnimationDurationUserInfoKey];
+    NSTimeInterval animationTime = durationValue.doubleValue;
+    [UIView animateWithDuration:animationTime animations:^{
     self.changableConstraint.constant = self.layoutConstant;
-
+    }];
 }
 
 @end

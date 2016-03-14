@@ -11,6 +11,7 @@
 #import "MFFriendDetailsViewController.h"
 #import <MagicalRecord/MagicalRecord.h>
 #import "MFFriend.h"
+#import "MFStoryboardConstants.h"
 
 @interface MFAllFriendsViewController () <NSFetchedResultsControllerDelegate>
 
@@ -56,8 +57,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *const reuseIdentifier = @"friendCell";
-    MFTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
+    MFTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kAllFriendsCellIdentifier forIndexPath:indexPath];
     MFFriend *friend = [self.fetchController objectAtIndexPath:indexPath];
     [cell configureCellWithFriend:friend actionBlock:nil];
     return cell;
@@ -75,7 +75,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         MFFriend *badFriend = [self.fetchController objectAtIndexPath:indexPath];
         [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
             MFFriend *localFriend = [badFriend MR_inContext:localContext];
-            localFriend.friend = @NO;
+            localFriend.isFriend = @NO;
         }];
         
     }
@@ -84,7 +84,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"showFriend"]) {
+    if ([segue.identifier isEqualToString:toFriendDetailsVC]) {
         NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
         MFFriendDetailsViewController *details = segue.destinationViewController;
         details.friend = [self.fetchController objectAtIndexPath:indexPath];

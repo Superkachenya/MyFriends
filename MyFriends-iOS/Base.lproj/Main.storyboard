@@ -49,7 +49,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="friendCell" rowHeight="60" id="zTC-Wu-Z4e" customClass="MFTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="kAllFriendsCellIdentifier" rowHeight="60" id="zTC-Wu-Z4e" customClass="MFTableViewCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zTC-Wu-Z4e" id="hDK-Bg-gnh">
@@ -89,7 +89,7 @@
                                             <outlet property="firstName" destination="V6V-TJ-as3" id="BXY-BK-bur"/>
                                             <outlet property="lastName" destination="pSL-37-SLE" id="7aT-u0-5aJ"/>
                                             <outlet property="userPhoto" destination="l88-32-MdX" id="Eps-zA-dIS"/>
-                                            <segue destination="wbi-aS-F45" kind="show" identifier="showFriend" id="Rak-ZN-Cs4"/>
+                                            <segue destination="wbi-aS-F45" kind="show" identifier="toFriendDetailsVC" id="Rak-ZN-Cs4"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -146,7 +146,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="badFriendCell" rowHeight="60" id="Whu-3w-EyX" customClass="MFTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="kBadFriendCellIdentifier" rowHeight="60" id="Whu-3w-EyX" customClass="MFTableViewCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Whu-3w-EyX" id="COd-kY-LVx">
@@ -247,7 +247,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BsR-Qp-zlO">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="178"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="111-222-333" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ejG-zW-AX2" customClass="TSValidatedTextField">
                                                 <rect key="frame" x="172" y="84" width="195" height="30"/>
@@ -301,6 +301,7 @@
                                             <constraint firstItem="up1-jK-fBw" firstAttribute="bottom" secondItem="hJC-qI-R8Q" secondAttribute="bottom" id="X8n-cg-bst"/>
                                             <constraint firstItem="up1-jK-fBw" firstAttribute="leading" secondItem="hJC-qI-R8Q" secondAttribute="trailing" constant="10" id="YM7-qu-UxX"/>
                                             <constraint firstAttribute="trailing" secondItem="ejG-zW-AX2" secondAttribute="trailing" constant="8" id="aLd-Cq-Rh4"/>
+                                            <constraint firstAttribute="bottom" secondItem="up1-jK-fBw" secondAttribute="bottom" constant="20" symbolic="YES" id="khL-Bq-YsC"/>
                                             <constraint firstItem="up1-jK-fBw" firstAttribute="top" secondItem="ejG-zW-AX2" secondAttribute="bottom" constant="14" id="nkJ-rY-ad0"/>
                                         </constraints>
                                     </view>
@@ -342,7 +343,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="changableConstraint" destination="6K3-mV-Y1J" id="19L-hC-F0q"/>
+                        <outlet property="changableConstraint" destination="M0t-r8-uXq" id="CIk-QR-yJO"/>
                         <outlet property="doneButton" destination="P3Y-Mk-XvS" id="kpe-Ox-hFL"/>
                         <outlet property="email" destination="up1-jK-fBw" id="kWt-Dc-yUB"/>
                         <outlet property="firstName" destination="8M3-nU-bdq" id="ccd-iS-I0V"/>
@@ -350,6 +351,7 @@
                         <outlet property="phone" destination="ejG-zW-AX2" id="BJx-SG-DnA"/>
                         <outlet property="scrollView" destination="a5o-wo-WQ2" id="uxR-2l-I5X"/>
                         <outlet property="userPhoto" destination="hJC-qI-R8Q" id="hcj-K4-wkM"/>
+                        <outlet property="view" destination="h5m-s7-GbK" id="1S3-a6-RbJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PjR-up-zQk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -377,7 +379,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userCell" rowHeight="60" id="aPx-Us-ooD" customClass="MFTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="kUserIdentifier" rowHeight="60" id="aPx-Us-ooD" customClass="MFTableViewCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aPx-Us-ooD" id="ov6-lR-Rht">

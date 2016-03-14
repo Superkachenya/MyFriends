@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, nonatomic, retain) NSString *email;
 @property (nullable, nonatomic, retain) NSString *firstName;
-@property (nullable, nonatomic, retain) NSNumber *friend;
+@property (nullable, nonatomic, retain) NSNumber *isFriend;
 @property (nullable, nonatomic, retain) NSString *lastName;
 @property (nullable, nonatomic, retain) NSString *phone;
 @property (nullable, nonatomic, retain) NSString *photoLarge;

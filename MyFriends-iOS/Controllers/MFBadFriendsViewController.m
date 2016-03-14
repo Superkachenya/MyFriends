@@ -10,6 +10,7 @@
 #import "MFTableViewCell.h"
 #import <MagicalRecord/MagicalRecord.h>
 #import "MFFriend.h"
+#import "MFStoryboardConstants.h"
 
 @interface MFBadFriendsViewController () <NSFetchedResultsControllerDelegate>
 
@@ -44,14 +45,13 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *const reuseIdentifier = @"badFriendCell";
-    MFTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
+    MFTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kBadFriendCellIdentifier forIndexPath:indexPath];
     MFFriend *friend = [self.fetchController objectAtIndexPath:indexPath];
     [cell configureCellWithFriend:friend actionBlock:^(id sender) {
         MFFriend *forgivenFriend = [self.fetchController objectAtIndexPath:indexPath];
         [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
             MFFriend *localFriend = [forgivenFriend MR_inContext:localContext];
-            localFriend.friend = @YES;
+            localFriend.isFriend = @YES;
         }];
 
     }];

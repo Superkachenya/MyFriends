@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+@class FEMMapping;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MFFriend : NSManagedObject
 
 + (NSFetchedResultsController *)fetchWithMRFriend:(BOOL)friend;
++ (FEMMapping *)defaultMapping;
 
 @end
 

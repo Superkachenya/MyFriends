@@ -8,16 +8,28 @@
 
 #import "MFFriend.h"
 #import <MagicalRecord/MagicalRecord.h>
+#import "FastEasyMapping.h"
 
 @implementation MFFriend
 
-+ (NSFetchedResultsController *)fetchWithMRFriend:(BOOL)friend {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"friend == %c", friend];
++ (NSFetchedResultsController *)fetchWithMRFriend:(BOOL)isFriend {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isFriend == %c", isFriend];
     NSFetchedResultsController *results = [MFFriend MR_fetchAllGroupedBy:nil
                                                            withPredicate:predicate
                                                                 sortedBy:@"firstName"
                                                                ascending:YES];
     return results;
+}
+
++ (FEMMapping *)defaultMapping {
+    FEMMapping *mapping = [[FEMMapping alloc] initWithEntityName:@"MFFriend"];
+    [mapping addAttributesFromArray:@[@"email"]];
+    [mapping addAttributesFromArray:@[@"phone"]];
+    [mapping addAttributesFromArray:@[@"firstName"]];
+    [mapping addAttributesFromArray:@[@"lastName"]];
+    [mapping addAttributesFromArray:@[@"photoLarge"]];
+    [mapping addAttributesFromArray:@[@"photoThumbnail"]];
+    return mapping;
 }
 
 @end

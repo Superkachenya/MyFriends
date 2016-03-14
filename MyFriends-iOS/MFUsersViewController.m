@@ -13,6 +13,8 @@
 #import <MagicalRecord/MagicalRecord.h>
 #import "MFFriend.h"
 #import "SVProgressHUD.h"
+#import "MFStoryboardConstants.h"
+#import "FastEasyMapping.h"
 
 @interface MFUsersViewController ()
 
@@ -57,20 +59,16 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *const reuseIdentifier = @"userCell";
-    MFTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
+    MFTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier forIndexPath:indexPath];
     MFUser *user = self.users[indexPath.row];
     __weak MFUsersViewController *weakSelf = self;
+    FEMMapping *mapping = [MFFriend defaultMapping];
     [cell configureCellWithUser:user actionBlock:^(id sender) {
         [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
-            MFFriend *newFriend = [MFFriend MR_createEntityInContext:localContext];
-            newFriend.firstName = user.firstName;
-            newFriend.lastName = user.lastName;
-            newFriend.email = user.email;
-            newFriend.phone = user.phone;
-            newFriend.photoLarge = user.photoLarge;
-            newFriend.photoThumbnail = user.photoThumbnail;
-            newFriend.friend = @YES;
+            MFFriend *newFriend = [FEMDeserializer objectFromRepresentation:(NSDictionary*)user
+                                                                    mapping:mapping
+                                                                    context:localContext];
+            newFriend.isFriend = @YES;
         }];
         [weakSelf.users removeObjectAtIndex:indexPath.row];
         [weakSelf.tableView deleteRowsAtIndexPaths:@[indexPath]
