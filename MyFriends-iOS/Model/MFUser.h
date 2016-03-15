@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MFDetailsProtocol.h"
 
 @class FEMMapping;
 
-@interface MFUser : NSObject
+@interface MFUser : NSObject <MFDetailsProtocol>
 
 @property (strong, nonatomic) NSString *email;
 @property (strong, nonatomic) NSString *phone;

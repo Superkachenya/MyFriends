@@ -361,7 +361,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1273.5" y="410.5"/>
+            <point key="canvasLocation" x="1273.5" y="481.5"/>
         </scene>
         <!--Choose new friend-->
         <scene sceneID="ne7-pm-rgm">

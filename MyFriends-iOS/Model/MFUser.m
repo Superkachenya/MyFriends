@@ -22,4 +22,30 @@
     return mapping;
 }
 
+#pragma mark - MFDetailsProtocol
+
+- (NSString *)getEmail {
+    return self.email;
+}
+
+- (NSString *)getPhone {
+    return self.phone;
+}
+
+- (NSString *)getFirstName {
+    return self.firstName;
+}
+
+- (NSString *)getLastName {
+    return self.lastName;
+}
+
+- (NSString *)getPhotoLarge {
+    return self.photoLarge;
+}
+
+- (BOOL)isEditable {
+    return NO;
+}
+
 @end

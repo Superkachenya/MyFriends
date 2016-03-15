@@ -9,7 +9,6 @@
 #import "MFFriendDetailsViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "MFFriend.h"
-#import "MFUser.h"
 #import "TSValidatedTextField.h"
 #import <MagicalRecord/MagicalRecord.h>
 
@@ -41,7 +40,7 @@
     self.phone.delegate = self;
     self.email.delegate = self;
     self.layoutConstant = self.changableConstraint.constant;
-    [self fillInView];
+    [self fillTheView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -81,7 +80,7 @@
 
 - (IBAction)doneButtonDidPress:(id)sender {
     [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
-        MFFriend *localFriend = [self.myFriend MR_inContext:localContext];
+        MFFriend *localFriend = [(MFFriend *)self.details MR_inContext:localContext];
         localFriend.phone = self.phone.text;
         localFriend.email = self.email.text;
     } completion:^(BOOL contextDidSave, NSError * _Nullable error) {
@@ -165,21 +164,14 @@
     }];
 }
 
-- (void)fillInView {
-    if (self.myFriend) {
-        NSURL *url = [NSURL URLWithString:self.myFriend.photoLarge];
-        [self.userPhoto sd_setImageWithURL:url];
-        self.firstName.text = self.myFriend.firstName;
-        self.lastName.text = self.myFriend.lastName;
-        self.email.text = self.myFriend.email;
-        self.phone.text = self.myFriend.phone;
-    } else if (self.myUser) {
-        NSURL *url = [NSURL URLWithString:self.myUser.photoLarge];
-        [self.userPhoto sd_setImageWithURL:url];
-        self.firstName.text = self.myUser.firstName;
-        self.lastName.text = self.myUser.lastName;
-        self.email.text = self.myUser.email;
-        self.phone.text = self.myUser.phone;
+- (void)fillTheView {
+    self.firstName.text = [self.details getFirstName];
+    self.lastName.text = [self.details getLastName];
+    self.email.text = [self.details getEmail];
+    self.phone.text = [self.details getPhone];
+    NSURL *url = [NSURL URLWithString:[self.details getPhotoLarge]];
+    [self.userPhoto sd_setImageWithURL:url];
+    if ([self.details isEditable] == NO) {
         self.email.enabled = NO;
         self.phone.enabled = NO;
         self.doneButton.enabled = NO;

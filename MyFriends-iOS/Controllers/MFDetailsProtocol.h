@@ -10,4 +10,11 @@
 
 @protocol MFDetailsProtocol <NSObject>
 
+- (NSString *)getEmail;
+- (NSString *)getPhone;
+- (NSString *)getFirstName;
+- (NSString *)getLastName;
+- (NSString *)getPhotoLarge;
+- (BOOL)isEditable;
+
 @end

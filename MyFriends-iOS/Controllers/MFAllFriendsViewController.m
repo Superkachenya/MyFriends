@@ -87,7 +87,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([segue.identifier isEqualToString:toFriendDetailsVC]) {
         NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
         MFFriendDetailsViewController *details = segue.destinationViewController;
-        details.myFriend = [self.fetchController objectAtIndexPath:indexPath];
+        details.details = [self.fetchController objectAtIndexPath:indexPath];
     }
 }
 

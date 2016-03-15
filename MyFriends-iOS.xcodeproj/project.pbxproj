@@ -208,7 +208,6 @@
 				8ECE05A81C86F1C000F5DAA6 /* MFUsersViewController.h */,
 				8ECE05A91C86F1C000F5DAA6 /* MFUsersViewController.m */,
 				8ECE05A11C86EECE00F5DAA6 /* CustomCell */,
-				8E64DDB31C98478600D384C8 /* MFDetailsProtocol.h */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -225,6 +224,7 @@
 		8ECE05B11C87038300F5DAA6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8E64DDB31C98478600D384C8 /* MFDetailsProtocol.h */,
 				8ECE06121C872E1200F5DAA6 /* Friend */,
 				8ECE06161C8752A200F5DAA6 /* User */,
 			);

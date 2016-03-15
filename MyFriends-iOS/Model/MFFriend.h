@@ -8,11 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "MFDetailsProtocol.h"
 @class FEMMapping;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MFFriend : NSManagedObject
+@interface MFFriend : NSManagedObject <MFDetailsProtocol>
 
 + (NSFetchedResultsController *)fetchWithMRFriend:(BOOL)friend;
 + (FEMMapping *)defaultMapping;

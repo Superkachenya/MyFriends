@@ -82,12 +82,8 @@
         [self getMoreRandomUsers];
     }
 }
-#pragma mark - tableViewDelegate
 
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    MFUser *user = self.users[indexPath.row];
-//    [self showUser:user];
-//}
+#pragma mark - tableViewDelegate
 
 #pragma mark - Navigation
 
@@ -95,7 +91,7 @@
     if ([segue.identifier isEqualToString:toDetailsVCFromUsersVC]) {
         NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
         MFFriendDetailsViewController *details = segue.destinationViewController;
-        details.myUser = self.users [indexPath.row];
+        details.details = self.users [indexPath.row];
     }
 }
 
