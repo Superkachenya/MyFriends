@@ -12,7 +12,6 @@
 #import "MFUser.h"
 #import <MagicalRecord/MagicalRecord.h>
 #import "MFFriend.h"
-#import "SVProgressHUD.h"
 #import "MFStoryboardConstants.h"
 #import "FastEasyMapping.h"
 #import "MFFriendDetailsViewController.h"
@@ -82,8 +81,6 @@
         [self getMoreRandomUsers];
     }
 }
-
-#pragma mark - tableViewDelegate
 
 #pragma mark - Navigation
 
