@@ -53,7 +53,7 @@
             MFFriend *localFriend = [forgivenFriend MR_inContext:localContext];
             localFriend.isFriend = @YES;
         }];
-
+        
     }];
     return cell;
 }

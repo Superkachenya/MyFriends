@@ -164,6 +164,8 @@
     }];
 }
 
+#pragma mark - fill in view
+
 - (void)fillTheView {
     self.firstName.text = [self.details getFirstName];
     self.lastName.text = [self.details getLastName];

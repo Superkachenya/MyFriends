@@ -33,6 +33,7 @@
 }
 
 #pragma mark - MFDetailsProtocol
+
 - (NSString *)getEmail {
     return self.email;
 }
