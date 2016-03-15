@@ -13,4 +13,7 @@ extern NSString * const kBadFriendCellIdentifier;
 extern NSString * const kAllFriendsCellIdentifier;
 extern NSString * const kWaitForItIdentifier;
 
+extern NSString * const toUsersVC;
+extern NSString * const toBadFriendsVC;
 extern NSString * const toFriendDetailsVC;
+extern NSString * const toDetailsVCFromUsersVC;

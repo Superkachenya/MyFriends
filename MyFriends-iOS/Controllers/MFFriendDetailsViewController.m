@@ -9,6 +9,7 @@
 #import "MFFriendDetailsViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "MFFriend.h"
+#import "MFUser.h"
 #import "TSValidatedTextField.h"
 #import <MagicalRecord/MagicalRecord.h>
 
@@ -33,8 +34,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    [self.scrollView setContentOffset: CGPointMake(0, self.scrollView.contentOffset.y)];
-//    self.scrollView.directionalLockEnabled = YES;
     self.userPhoto.layer.cornerRadius = self.userPhoto.frame.size.width / 2;
     self.userPhoto.clipsToBounds = YES;
     self.userPhoto.layer.borderWidth = 1.0f;
@@ -42,6 +41,7 @@
     self.phone.delegate = self;
     self.email.delegate = self;
     self.layoutConstant = self.changableConstraint.constant;
+    [self fillInView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,12 +52,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     
-    NSURL *url = [NSURL URLWithString:self.friend.photoLarge];
-    [self.userPhoto sd_setImageWithURL:url];
-    self.firstName.text = self.friend.firstName;
-    self.lastName.text = self.friend.lastName;
-    self.email.text = self.friend.email;
-    self.phone.text = self.friend.phone;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWasShown:)
                                                  name:UIKeyboardWillShowNotification
@@ -87,7 +81,7 @@
 
 - (IBAction)doneButtonDidPress:(id)sender {
     [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
-        MFFriend *localFriend = [self.friend MR_inContext:localContext];
+        MFFriend *localFriend = [self.myFriend MR_inContext:localContext];
         localFriend.phone = self.phone.text;
         localFriend.email = self.email.text;
     } completion:^(BOOL contextDidSave, NSError * _Nullable error) {
@@ -158,7 +152,7 @@
     [UIView animateWithDuration:animationTime animations:^{
         [self.view layoutIfNeeded];
     }];
-
+    
 }
 
 - (void)keyboardWillBeHidden:(NSNotification*)notification {
@@ -169,6 +163,27 @@
     [UIView animateWithDuration:animationTime animations:^{
         [self.view layoutIfNeeded];
     }];
+}
+
+- (void)fillInView {
+    if (self.myFriend) {
+        NSURL *url = [NSURL URLWithString:self.myFriend.photoLarge];
+        [self.userPhoto sd_setImageWithURL:url];
+        self.firstName.text = self.myFriend.firstName;
+        self.lastName.text = self.myFriend.lastName;
+        self.email.text = self.myFriend.email;
+        self.phone.text = self.myFriend.phone;
+    } else if (self.myUser) {
+        NSURL *url = [NSURL URLWithString:self.myUser.photoLarge];
+        [self.userPhoto sd_setImageWithURL:url];
+        self.firstName.text = self.myUser.firstName;
+        self.lastName.text = self.myUser.lastName;
+        self.email.text = self.myUser.email;
+        self.phone.text = self.myUser.phone;
+        self.email.enabled = NO;
+        self.phone.enabled = NO;
+        self.doneButton.enabled = NO;
+    }
 }
 
 @end

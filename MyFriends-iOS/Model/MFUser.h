@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+
 @class FEMMapping;
 
 @interface MFUser : NSObject
@@ -17,9 +18,6 @@
 @property (strong, nonatomic) NSString *lastName;
 @property (strong, nonatomic) NSString *photoLarge;
 @property (strong, nonatomic) NSString *photoThumbnail;
-@property (nonatomic, assign) NSInteger currentPage;
-@property (nonatomic, assign) NSInteger totalPages;
-@property (nonatomic, assign) NSInteger totalItems;
 
 + (FEMMapping *)defaultMapping;
 

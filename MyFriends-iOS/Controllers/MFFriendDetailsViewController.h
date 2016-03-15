@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-@class MFFriend;
+@class MFFriend, MFUser;
 
 @interface MFFriendDetailsViewController : UIViewController
 
-@property (strong, nonatomic) MFFriend *friend;
+@property (strong, nonatomic) MFFriend *myFriend;
+@property (strong, nonatomic) MFUser *myUser;
 
 @end

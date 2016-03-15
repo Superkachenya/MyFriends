@@ -33,7 +33,7 @@
     [self.fetchController performFetch:&error];
     id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchController sections][0];
     if (![sectionInfo numberOfObjects]) {
-        [self performSegueWithIdentifier:@"showUsers" sender:self];
+        [self performSegueWithIdentifier:toUsersVC sender:self];
     }
     self.fetchController.delegate = self;
 }
@@ -87,7 +87,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([segue.identifier isEqualToString:toFriendDetailsVC]) {
         NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
         MFFriendDetailsViewController *details = segue.destinationViewController;
-        details.friend = [self.fetchController objectAtIndexPath:indexPath];
+        details.myFriend = [self.fetchController objectAtIndexPath:indexPath];
     }
 }
 
@@ -137,5 +137,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     MFFriend *friend = [self.fetchController objectAtIndexPath:indexPath];
     [cell configureCellWithFriend:friend actionBlock:nil];
 }
+
 
 @end

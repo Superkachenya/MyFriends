@@ -15,6 +15,7 @@
 #import "SVProgressHUD.h"
 #import "MFStoryboardConstants.h"
 #import "FastEasyMapping.h"
+#import "MFFriendDetailsViewController.h"
 
 @interface MFUsersViewController ()
 
@@ -29,7 +30,8 @@
 #pragma mark - UIView lifecycle
 
 - (void)viewDidLoad {
-    self.users = [NSMutableArray new];
+    [super viewDidLoad];
+    
     [self getMoreRandomUsers];
 }
 
@@ -46,7 +48,7 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.users.count;
+    return self.users.count + 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -54,23 +56,24 @@
     if (indexPath.row == self.users.count) {
         cell = [self.tableView dequeueReusableCellWithIdentifier:kWaitForItIdentifier forIndexPath:indexPath];
         [cell.activity startAnimating];
-    }
-    cell = [self.tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier forIndexPath:indexPath];
-    MFUser *user = self.users[indexPath.row];
-    __weak MFUsersViewController *weakSelf = self;
-    FEMMapping *mapping = [MFFriend defaultMapping];
-    [cell configureCellWithUser:user actionBlock:^(id sender) {
-        [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
-            MFFriend *newFriend = [FEMDeserializer objectFromRepresentation:(NSDictionary*)user
-                                                                    mapping:mapping
-                                                                    context:localContext];
-            newFriend.isFriend = @YES;
+    } else {
+        cell = [self.tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier forIndexPath:indexPath];
+        MFUser *user = self.users[indexPath.row];
+        __weak MFUsersViewController *weakSelf = self;
+        FEMMapping *mapping = [MFFriend defaultMapping];
+        [cell configureCellWithUser:user actionBlock:^(id sender) {
+            [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
+                MFFriend *newFriend = [FEMDeserializer objectFromRepresentation:(NSDictionary*)user
+                                                                        mapping:mapping
+                                                                        context:localContext];
+                newFriend.isFriend = @YES;
+            }];
+            [weakSelf.users removeObjectAtIndex:indexPath.row];
+            [weakSelf.tableView deleteRowsAtIndexPaths:@[indexPath]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+            [weakSelf.tableView reloadData];
         }];
-        [weakSelf.users removeObjectAtIndex:indexPath.row];
-        [weakSelf.tableView deleteRowsAtIndexPaths:@[indexPath]
-                                  withRowAnimation:UITableViewRowAnimationFade];
-        [weakSelf.tableView reloadData];
-    }];
+    }
     return cell;
 }
 
@@ -79,6 +82,23 @@
         [self getMoreRandomUsers];
     }
 }
+#pragma mark - tableViewDelegate
+
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    MFUser *user = self.users[indexPath.row];
+//    [self showUser:user];
+//}
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:toDetailsVCFromUsersVC]) {
+        NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
+        MFFriendDetailsViewController *details = segue.destinationViewController;
+        details.myUser = self.users [indexPath.row];
+    }
+}
+
 #pragma mark - Network connection
 
 - (void)getMoreRandomUsers {
@@ -96,11 +116,13 @@
             [alert addAction:cancel];
             [self presentViewController:alert animated:YES completion:nil];
         } else {
+            if (!self.users) {
+                self.users = [NSMutableArray new];
+            }
             [self.users addObjectsFromArray:users];
             [self.tableView reloadData];
         }
     }];
-    
 }
 
 @end

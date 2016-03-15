@@ -118,7 +118,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="H4x-V9-JzA">
                             <color key="tintColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <segue destination="AXw-0I-VXT" kind="show" identifier="showUsers" id="nzX-2j-6f3"/>
+                                <segue destination="AXw-0I-VXT" kind="show" identifier="toUsersVC" id="nzX-2j-6f3"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -229,7 +229,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y1H-fr-6rz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1170.5" y="-304.5"/>
+            <point key="canvasLocation" x="1273.5" y="-701.5"/>
         </scene>
         <!--Friend Info-->
         <scene sceneID="XF6-aF-YsK">
@@ -361,7 +361,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="779.5" y="523.5"/>
+            <point key="canvasLocation" x="1273.5" y="410.5"/>
         </scene>
         <!--Choose new friend-->
         <scene sceneID="ne7-pm-rgm">
@@ -438,6 +438,7 @@
                                             <outlet property="firstName" destination="wRD-Rn-J4J" id="doE-4p-zTD"/>
                                             <outlet property="lastName" destination="dPe-M3-leq" id="iYf-ho-yXB"/>
                                             <outlet property="userPhoto" destination="64a-Sb-jYq" id="dVl-hO-seZ"/>
+                                            <segue destination="wbi-aS-F45" kind="show" identifier="toDetailsVCFromUsersVC" id="6Dc-L3-kmG"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="kWaitForItIdentifier" rowHeight="60" id="h45-Ua-fH1" customClass="MFTableViewCell">
@@ -483,7 +484,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K6A-He-WqR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1564.5" y="-304.5"/>
+            <point key="canvasLocation" x="1716.5" y="-304.5"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Rak-ZN-Cs4"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -60,6 +60,7 @@
 		8E2DFF0D1C85F99300566825 /* MyFriends-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MyFriends-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E2DFF111C85F99300566825 /* MyFriends_iOSUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyFriends_iOSUITests.m; sourceTree = "<group>"; };
 		8E2DFF131C85F99300566825 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8E64DDB31C98478600D384C8 /* MFDetailsProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MFDetailsProtocol.h; path = Controllers/MFDetailsProtocol.h; sourceTree = "<group>"; };
 		8E9EECE61C887465006A0E8F /* MFBadFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MFBadFriendsViewController.h; path = Controllers/MFBadFriendsViewController.h; sourceTree = "<group>"; };
 		8E9EECE71C887465006A0E8F /* MFBadFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MFBadFriendsViewController.m; path = Controllers/MFBadFriendsViewController.m; sourceTree = "<group>"; };
 		8EA626A11C96E098001B83E4 /* MFStoryboardConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MFStoryboardConstants.h; path = Controllers/MFStoryboardConstants.h; sourceTree = "<group>"; };
@@ -207,6 +208,7 @@
 				8ECE05A81C86F1C000F5DAA6 /* MFUsersViewController.h */,
 				8ECE05A91C86F1C000F5DAA6 /* MFUsersViewController.m */,
 				8ECE05A11C86EECE00F5DAA6 /* CustomCell */,
+				8E64DDB31C98478600D384C8 /* MFDetailsProtocol.h */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
