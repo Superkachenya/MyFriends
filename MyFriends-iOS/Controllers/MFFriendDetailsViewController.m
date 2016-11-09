@@ -30,18 +30,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.phone.delegate = self;
+    self.email.delegate = self;
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
     
     self.userPhoto.layer.cornerRadius = self.userPhoto.frame.size.width / 2;
     self.userPhoto.clipsToBounds = YES;
     self.userPhoto.layer.borderWidth = 1.0f;
     self.userPhoto.layer.borderColor = [UIColor purpleColor].CGColor;
-    self.phone.delegate = self;
-    self.email.delegate = self;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)viewWillAppear:(BOOL)animated {

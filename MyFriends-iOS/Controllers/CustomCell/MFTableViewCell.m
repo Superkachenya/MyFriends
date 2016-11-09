@@ -14,16 +14,12 @@
 @implementation MFTableViewCell
 
 - (void)awakeFromNib {
-    self.userPhoto.layer.cornerRadius = self.userPhoto.frame.size.width / 2;
+    [super awakeFromNib];
+    
+    self.userPhoto.layer.cornerRadius = 30;
     self.userPhoto.clipsToBounds = YES;
     self.userPhoto.layer.borderWidth = 1.0f;
     self.userPhoto.layer.borderColor = [UIColor purpleColor].CGColor;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 - (void)configureCellWithFriend:(MFFriend *)friend {
@@ -37,7 +33,9 @@
 - (void)configureCellWithUser:(MFUser *)user {
     NSURL *url = [NSURL URLWithString:user.photoThumbnail];
     [self.userPhoto sd_setImageWithURL:url
-                      placeholderImage:[UIImage imageNamed:@"placeholder.jpg"]];
+                      placeholderImage:[UIImage imageNamed:@"placeholder.jpg"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                          
+                      }];
     self.firstName.text = user.firstName;
     self.lastName.text = user.lastName;
 }
