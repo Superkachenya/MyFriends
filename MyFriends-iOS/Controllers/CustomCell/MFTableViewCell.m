@@ -23,16 +23,12 @@
 @implementation MFTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
+    
     self.userPhoto.layer.cornerRadius = self.userPhoto.frame.size.width / 2;
     self.userPhoto.clipsToBounds = YES;
     self.userPhoto.layer.borderWidth = 1.0f;
     self.userPhoto.layer.borderColor = [UIColor purpleColor].CGColor;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-    
-    // Configure the view for the selected state
 }
 
 - (void)configureCellWithFriend:(MFFriend *)friend actionBlock:(GreenButtonDidPress)block{

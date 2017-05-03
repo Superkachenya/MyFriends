@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6F01ED8EA902A4A86B69D3B4 /* libPods-MyFriends-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C10FFFC6ECEE52EE2D0192C9 /* libPods-MyFriends-iOS.a */; };
 		8E2DFEEE1C85F99300566825 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E2DFEED1C85F99300566825 /* main.m */; };
 		8E2DFEF11C85F99300566825 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E2DFEF01C85F99300566825 /* AppDelegate.m */; };
 		8E2DFEF71C85F99300566825 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E2DFEF51C85F99300566825 /* Main.storyboard */; };
@@ -25,7 +26,6 @@
 		8ECE06101C872DAF00F5DAA6 /* MFFriend+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE060D1C872DAF00F5DAA6 /* MFFriend+CoreDataProperties.m */; };
 		8ECE06111C872DAF00F5DAA6 /* MFFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE060F1C872DAF00F5DAA6 /* MFFriend.m */; };
 		8ECE06151C872E3800F5DAA6 /* MFUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE06141C872E3800F5DAA6 /* MFUser.m */; };
-		F87E43C6732FC727EE8019FD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB66AC3D1F9876E64412DF7E /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		37E80616C732D7DB4BA36485 /* Pods-MyFriends-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFriends-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyFriends-iOS/Pods-MyFriends-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		8E2DFEE91C85F99300566825 /* MyFriends-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyFriends-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E2DFEED1C85F99300566825 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8E2DFEEF1C85F99300566825 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -82,9 +83,8 @@
 		8ECE060F1C872DAF00F5DAA6 /* MFFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MFFriend.m; path = Model/MFFriend.m; sourceTree = "<group>"; };
 		8ECE06131C872E3800F5DAA6 /* MFUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MFUser.h; path = Model/MFUser.h; sourceTree = "<group>"; };
 		8ECE06141C872E3800F5DAA6 /* MFUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MFUser.m; path = Model/MFUser.m; sourceTree = "<group>"; };
-		C28E60C13286D83ADA93A160 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		D98262982FCAB3C425011106 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		EB66AC3D1F9876E64412DF7E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA4AB51DC6F1B6E2C82E7BC0 /* Pods-MyFriends-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFriends-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyFriends-iOS/Pods-MyFriends-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		C10FFFC6ECEE52EE2D0192C9 /* libPods-MyFriends-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyFriends-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,7 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F87E43C6732FC727EE8019FD /* libPods.a in Frameworks */,
+				6F01ED8EA902A4A86B69D3B4 /* libPods-MyFriends-iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,12 +113,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5093DE906BBFAEF9F9B0E61A /* Frameworks */ = {
+		81DA1096C8E7D1EF5A852989 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EB66AC3D1F9876E64412DF7E /* libPods.a */,
+				C10FFFC6ECEE52EE2D0192C9 /* libPods-MyFriends-iOS.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		83E6DBBF1EBA770A00AD6064 /* AllFriends */ = {
+			isa = PBXGroup;
+			children = (
+				8ECE059A1C86ED4800F5DAA6 /* MFAllFriendsViewController.h */,
+				8ECE059B1C86ED4800F5DAA6 /* MFAllFriendsViewController.m */,
+			);
+			name = AllFriends;
+			sourceTree = "<group>";
+		};
+		83E6DBC01EBA790500AD6064 /* BadFiends */ = {
+			isa = PBXGroup;
+			children = (
+				8E9EECE61C887465006A0E8F /* MFBadFriendsViewController.h */,
+				8E9EECE71C887465006A0E8F /* MFBadFriendsViewController.m */,
+			);
+			name = BadFiends;
+			sourceTree = "<group>";
+		};
+		83E6DBC11EBA791100AD6064 /* FriendDetails */ = {
+			isa = PBXGroup;
+			children = (
+				8ECE05A51C86F18600F5DAA6 /* MFFriendDetailsViewController.h */,
+				8ECE05A61C86F18600F5DAA6 /* MFFriendDetailsViewController.m */,
+			);
+			name = FriendDetails;
+			sourceTree = "<group>";
+		};
+		83E6DBC21EBA792000AD6064 /* Users */ = {
+			isa = PBXGroup;
+			children = (
+				8ECE05A81C86F1C000F5DAA6 /* MFUsersViewController.h */,
+				8ECE05A91C86F1C000F5DAA6 /* MFUsersViewController.m */,
+			);
+			name = Users;
 			sourceTree = "<group>";
 		};
 		8E2DFEE01C85F99300566825 = {
@@ -128,8 +164,8 @@
 				8E2DFF051C85F99300566825 /* MyFriends-iOSTests */,
 				8E2DFF101C85F99300566825 /* MyFriends-iOSUITests */,
 				8E2DFEEA1C85F99300566825 /* Products */,
-				BD71773D6157BE0D38BC870C /* Pods */,
-				5093DE906BBFAEF9F9B0E61A /* Frameworks */,
+				94AC1DA700E320DEFFA69160 /* Pods */,
+				81DA1096C8E7D1EF5A852989 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -198,15 +234,10 @@
 		8ECE059D1C86ED5300F5DAA6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				8EA626A51C9716BA001B83E4 /* StoryboardConstraints */,
-				8ECE059A1C86ED4800F5DAA6 /* MFAllFriendsViewController.h */,
-				8ECE059B1C86ED4800F5DAA6 /* MFAllFriendsViewController.m */,
-				8E9EECE61C887465006A0E8F /* MFBadFriendsViewController.h */,
-				8E9EECE71C887465006A0E8F /* MFBadFriendsViewController.m */,
-				8ECE05A51C86F18600F5DAA6 /* MFFriendDetailsViewController.h */,
-				8ECE05A61C86F18600F5DAA6 /* MFFriendDetailsViewController.m */,
-				8ECE05A81C86F1C000F5DAA6 /* MFUsersViewController.h */,
-				8ECE05A91C86F1C000F5DAA6 /* MFUsersViewController.m */,
+				83E6DBBF1EBA770A00AD6064 /* AllFriends */,
+				83E6DBC01EBA790500AD6064 /* BadFiends */,
+				83E6DBC11EBA791100AD6064 /* FriendDetails */,
+				83E6DBC21EBA792000AD6064 /* Users */,
 				8ECE05A11C86EECE00F5DAA6 /* CustomCell */,
 			);
 			name = Controllers;
@@ -243,6 +274,7 @@
 		8ECE05BD1C8705B700F5DAA6 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				8EA626A51C9716BA001B83E4 /* StoryboardConstraints */,
 				8ECE05BC1C8705AB00F5DAA6 /* Networking */,
 			);
 			name = Tools;
@@ -269,11 +301,11 @@
 			name = User;
 			sourceTree = "<group>";
 		};
-		BD71773D6157BE0D38BC870C /* Pods */ = {
+		94AC1DA700E320DEFFA69160 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C28E60C13286D83ADA93A160 /* Pods.debug.xcconfig */,
-				D98262982FCAB3C425011106 /* Pods.release.xcconfig */,
+				37E80616C732D7DB4BA36485 /* Pods-MyFriends-iOS.debug.xcconfig */,
+				AA4AB51DC6F1B6E2C82E7BC0 /* Pods-MyFriends-iOS.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -285,12 +317,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8E2DFF161C85F99300566825 /* Build configuration list for PBXNativeTarget "MyFriends-iOS" */;
 			buildPhases = (
-				F38245F8C2E3F9934E29E23A /* Check Pods Manifest.lock */,
+				AE9181239150BB74FB9406DE /* [CP] Check Pods Manifest.lock */,
 				8E2DFEE51C85F99300566825 /* Sources */,
 				8E2DFEE61C85F99300566825 /* Frameworks */,
 				8E2DFEE71C85F99300566825 /* Resources */,
-				F18326C3EFFC13D5E46FE521 /* Embed Pods Frameworks */,
-				61158A72E64F4938AB036027 /* Copy Pods Resources */,
+				BE5A4E8984B6D74545342BF2 /* [CP] Embed Pods Frameworks */,
+				1A041311D291EB69CFCD936D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -408,49 +440,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		61158A72E64F4938AB036027 /* Copy Pods Resources */ = {
+		1A041311D291EB69CFCD936D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyFriends-iOS/Pods-MyFriends-iOS-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F18326C3EFFC13D5E46FE521 /* Embed Pods Frameworks */ = {
+		AE9181239150BB74FB9406DE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		F38245F8C2E3F9934E29E23A /* Check Pods Manifest.lock */ = {
+		BE5A4E8984B6D74545342BF2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyFriends-iOS/Pods-MyFriends-iOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -609,7 +641,7 @@
 		};
 		8E2DFF171C85F99300566825 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C28E60C13286D83ADA93A160 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 37E80616C732D7DB4BA36485 /* Pods-MyFriends-iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "MyFriends-iOS/Info.plist";
@@ -621,7 +653,7 @@
 		};
 		8E2DFF181C85F99300566825 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D98262982FCAB3C425011106 /* Pods.release.xcconfig */;
+			baseConfigurationReference = AA4AB51DC6F1B6E2C82E7BC0 /* Pods-MyFriends-iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "MyFriends-iOS/Info.plist";

@@ -24,7 +24,7 @@ NSString *const url = @"http://api.randomuser.me/?results=10";
                 NSMutableArray *users = [NSMutableArray new];
                 NSArray *results = responseObject[@"results"];
                 for (id randomUser in results) {
-                    NSDictionary *currentUser = (NSDictionary *)randomUser[@"user"];
+                    NSDictionary *currentUser = (NSDictionary *)randomUser;
                     FEMMapping *mapping = [MFUser defaultMapping];
                     MFUser *user = [FEMDeserializer objectFromRepresentation:currentUser mapping:mapping];
                     [users addObject:user];

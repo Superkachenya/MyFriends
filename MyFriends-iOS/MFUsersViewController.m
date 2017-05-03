@@ -34,16 +34,6 @@
     [self getMoreRandomUsers];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
--(void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:YES];
-    
-}
-
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -76,10 +66,16 @@
     return cell;
 }
 
+#pragma mark - UITableViewDelegate
+
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == [self.users count] - 1 ) {
         [self getMoreRandomUsers];
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 80.0;
 }
 
 #pragma mark - Navigation
