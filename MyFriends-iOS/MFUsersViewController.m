@@ -10,18 +10,17 @@
 #import "MFTableViewCell.h"
 #import "MFNetworkManager.h"
 #import "MFUser.h"
-#import "MFPersistenceManager.h"
-#import "NSManagedObjectContext+MFSave.h"
-#import <CoreData/CoreData.h>
+#import <MagicalRecord/MagicalRecord.h>
 #import "MFFriend.h"
-#import "SVProgressHUD.h"
+#import "MFStoryboardConstants.h"
+#import "FastEasyMapping.h"
+#import "MFFriendDetailsViewController.h"
 
 @interface MFUsersViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *users;
 @property (strong, nonatomic) UIAlertController *alertController;
-@property (strong, nonatomic) NSManagedObjectContext *context;
 
 @end
 
@@ -31,8 +30,67 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
-    self.context = [MFPersistenceManager sharedManager].workerContext;
+    
+    [self getMoreRandomUsers];
+}
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.users.count + 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    MFTableViewCell *cell = nil;
+    if (indexPath.row == self.users.count) {
+        cell = [self.tableView dequeueReusableCellWithIdentifier:kWaitForItIdentifier forIndexPath:indexPath];
+        [cell.activity startAnimating];
+    } else {
+        cell = [self.tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier forIndexPath:indexPath];
+        MFUser *user = self.users[indexPath.row];
+        __weak MFUsersViewController *weakSelf = self;
+        FEMMapping *mapping = [MFFriend defaultMapping];
+        [cell configureCellWithUser:user actionBlock:^(id sender) {
+            [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
+                MFFriend *newFriend = [FEMDeserializer objectFromRepresentation:(NSDictionary*)user
+                                                                        mapping:mapping
+                                                                        context:localContext];
+                newFriend.isFriend = @YES;
+            }];
+            [weakSelf.users removeObjectAtIndex:indexPath.row];
+            [weakSelf.tableView deleteRowsAtIndexPaths:@[indexPath]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+            [weakSelf.tableView reloadData];
+        }];
+    }
+    return cell;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == [self.users count] - 1 ) {
+        [self getMoreRandomUsers];
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 80.0;
+}
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:toDetailsVCFromUsersVC]) {
+        NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
+        MFFriendDetailsViewController *details = segue.destinationViewController;
+        details.details = self.users [indexPath.row];
+    }
+}
+
+#pragma mark - Network connection
+
+- (void)getMoreRandomUsers {
     [MFNetworkManager showRandomUsersWithCompletionBlock:^(NSError *error, NSMutableArray *users) {
         if (error) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error!"
@@ -47,63 +105,13 @@
             [alert addAction:cancel];
             [self presentViewController:alert animated:YES completion:nil];
         } else {
-            self.users = users;
+            if (!self.users) {
+                self.users = [NSMutableArray new];
+            }
+            [self.users addObjectsFromArray:users];
             [self.tableView reloadData];
-            [SVProgressHUD dismiss];
         }
     }];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
--(void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:YES];
-    
-    [self.context saveContext];
-}
-
-#pragma mark - UITableViewDataSource
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.users count];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *const reuseIdentifier = @"userCell";
-    MFTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
-    MFUser *user = self.users[indexPath.row];
-    [cell configureCellWithUser:user];
-    return cell;
-}
-
-- (IBAction)addUserButtonDidPress:(id)sender {
-    CGPoint buttonPosition = [sender convertPoint:CGPointZero
-                                           toView:self.tableView];
-    NSIndexPath *tappedIP = [self.tableView indexPathForRowAtPoint:buttonPosition];
-    MFUser *user = self.users[tappedIP.row];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"MFFriend"];
-    fetchRequest.fetchLimit = 1;
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"email == %@",user.email];
-    MFFriend *newFriend = nil;
-    newFriend = [self.context executeFetchRequest:fetchRequest
-                                            error:nil].firstObject;
-    if (!newFriend) {
-        newFriend = [NSEntityDescription insertNewObjectForEntityForName:@"MFFriend"
-                                                  inManagedObjectContext:self.context];
-        newFriend.firstName = user.firstName;
-        newFriend.lastName = user.lastName;
-        newFriend.email = user.email;
-        newFriend.phone = user.phone;
-        newFriend.photoLarge = user.photoLarge;
-        newFriend.photoThumbnail = user.photoThumbnail;
-        newFriend.friend = @YES;
-    }
-    [self.users removeObjectAtIndex:tappedIP.row];
-    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:tappedIP]
-                          withRowAnimation:UITableViewRowAnimationFade];
 }
 
 @end

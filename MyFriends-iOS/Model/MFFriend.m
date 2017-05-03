@@ -7,21 +7,54 @@
 //
 
 #import "MFFriend.h"
-#import "MFPersistenceManager.h"
+#import <MagicalRecord/MagicalRecord.h>
+#import "FastEasyMapping.h"
 
 @implementation MFFriend
 
-+ (NSFetchedResultsController *)fetchedResultControllerWithFriend:(BOOL)flag {
-    NSManagedObjectContext *context = [MFPersistenceManager sharedManager].mainContext;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"MFFriend"];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"friend == %c", flag];
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"firstName" ascending:YES];
-    [fetchRequest setSortDescriptors:@[sortDescriptor]];
-    NSFetchedResultsController *results= [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                                                             managedObjectContext:context
-                                                                               sectionNameKeyPath:nil
-                                                                                        cacheName:nil];
++ (NSFetchedResultsController *)fetchWithMRFriend:(BOOL)isFriend {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isFriend == %c", isFriend];
+    NSFetchedResultsController *results = [MFFriend MR_fetchAllGroupedBy:nil
+                                                           withPredicate:predicate
+                                                                sortedBy:@"firstName"
+                                                               ascending:YES];
     return results;
 }
 
++ (FEMMapping *)defaultMapping {
+    FEMMapping *mapping = [[FEMMapping alloc] initWithEntityName:@"MFFriend"];
+    [mapping addAttributesFromArray:@[@"email"]];
+    [mapping addAttributesFromArray:@[@"phone"]];
+    [mapping addAttributesFromArray:@[@"firstName"]];
+    [mapping addAttributesFromArray:@[@"lastName"]];
+    [mapping addAttributesFromArray:@[@"photoLarge"]];
+    [mapping addAttributesFromArray:@[@"photoThumbnail"]];
+    return mapping;
+}
+
+#pragma mark - MFDetailsProtocol
+
+- (NSString *)getEmail {
+    return self.email;
+}
+
+- (NSString *)getPhone {
+    return self.phone;
+}
+
+- (NSString *)getFirstName {
+    return self.firstName;
+}
+
+- (NSString *)getLastName {
+    return self.lastName;
+}
+
+- (NSString *)getPhotoLarge {
+    return self.photoLarge;
+}
+
+- (BOOL)isEditable {
+    return YES;
+}
 @end

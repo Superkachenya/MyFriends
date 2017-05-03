@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-@class MFFriend;
+#import "MFDetailsProtocol.h"
 
 @interface MFFriendDetailsViewController : UIViewController
 
-@property (strong, nonatomic) MFFriend *friend;
+@property (strong, nonatomic) id<MFDetailsProtocol>details;
 
 @end

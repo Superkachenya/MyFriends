@@ -15,7 +15,7 @@
 
 @dynamic email;
 @dynamic firstName;
-@dynamic friend;
+@dynamic isFriend;
 @dynamic lastName;
 @dynamic phone;
 @dynamic photoLarge;

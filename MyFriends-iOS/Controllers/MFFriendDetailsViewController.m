@@ -10,8 +10,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "MFFriend.h"
 #import "TSValidatedTextField.h"
-#import "MFPersistenceManager.h"
-#import "NSManagedObjectContext+MFSave.h"
+#import <MagicalRecord/MagicalRecord.h>
 
 @interface MFFriendDetailsViewController () <UITextFieldDelegate>
 
@@ -21,6 +20,9 @@
 @property (weak, nonatomic) IBOutlet TSValidatedTextField *phone;
 @property (weak, nonatomic) IBOutlet TSValidatedTextField *email;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *changableConstraint;
+@property (assign, nonatomic) CGFloat layoutConstant;
 
 @end
 
@@ -30,30 +32,39 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.phone.delegate = self;
-    self.email.delegate = self;
-}
-
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
     
     self.userPhoto.layer.cornerRadius = self.userPhoto.frame.size.width / 2;
     self.userPhoto.clipsToBounds = YES;
     self.userPhoto.layer.borderWidth = 1.0f;
     self.userPhoto.layer.borderColor = [UIColor purpleColor].CGColor;
+    self.phone.delegate = self;
+    self.email.delegate = self;
+    self.layoutConstant = self.changableConstraint.constant;
+    [self fillTheView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     
-    NSURL *url = [NSURL URLWithString:self.friend.photoLarge];
-    [self.userPhoto sd_setImageWithURL:url
-                      placeholderImage:[UIImage imageNamed:@"placeholder.jpg"]];
-    self.firstName.text = self.friend.firstName;
-    self.lastName.text = self.friend.lastName;
-    self.email.text = self.friend.email;
-    self.phone.text = self.friend.phone;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:YES];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
 }
 
 #pragma mark - BarButtons methods
@@ -63,11 +74,13 @@
 }
 
 - (IBAction)doneButtonDidPress:(id)sender {
-    self.friend.phone = self.phone.text;
-    self.friend.email = self.email.text;
-    NSManagedObjectContext *context = [MFPersistenceManager sharedManager].mainContext;
-    [context saveContext];
-    [self.navigationController popViewControllerAnimated:YES];
+    [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
+        MFFriend *localFriend = [(MFFriend *)self.details MR_inContext:localContext];
+        localFriend.phone = self.phone.text;
+        localFriend.email = self.email.text;
+    } completion:^(BOOL contextDidSave, NSError * _Nullable error) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
 }
 
 #pragma mark - TextFields methods
@@ -122,6 +135,44 @@
     [self.phone resignFirstResponder];
     [self.email resignFirstResponder];
     return YES;
+}
+
+- (void)keyboardWasShown:(NSNotification*)notification {
+    NSDictionary* info = [notification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    NSNumber *durationValue = info[UIKeyboardAnimationDurationUserInfoKey];
+    NSTimeInterval animationTime = durationValue.doubleValue;
+    self.changableConstraint.constant = kbSize.height;
+    [UIView animateWithDuration:animationTime animations:^{
+        [self.view layoutIfNeeded];
+    }];
+    
+}
+
+- (void)keyboardWillBeHidden:(NSNotification*)notification {
+    NSDictionary* info = [notification userInfo];
+    NSNumber *durationValue = info[UIKeyboardAnimationDurationUserInfoKey];
+    NSTimeInterval animationTime = durationValue.doubleValue;
+    self.changableConstraint.constant = self.layoutConstant;
+    [UIView animateWithDuration:animationTime animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+#pragma mark - fill in view
+
+- (void)fillTheView {
+    self.firstName.text = [self.details getFirstName];
+    self.lastName.text = [self.details getLastName];
+    self.email.text = [self.details getEmail];
+    self.phone.text = [self.details getPhone];
+    NSURL *url = [NSURL URLWithString:[self.details getPhotoLarge]];
+    [self.userPhoto sd_setImageWithURL:url];
+    if ([self.details isEditable] == NO) {
+        self.email.enabled = NO;
+        self.phone.enabled = NO;
+        self.doneButton.enabled = NO;
+    }
 }
 
 @end

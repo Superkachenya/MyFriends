@@ -3,13 +3,13 @@
     <entity name="MFFriend" representedClassName="MFFriend" syncable="YES">
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="friend" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isFriend" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="photoLarge" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="photoThumbnail" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="MFFriend" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MFFriend" positionX="0" positionY="0" width="128" height="150"/>
     </elements>
 </model>

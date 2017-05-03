@@ -11,33 +11,46 @@
 #import "MFUser.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
+@interface MFTableViewCell ()
+
+@property (copy, nonatomic) GreenButtonDidPress didTapButtonBlock;
+@property (weak, nonatomic) IBOutlet UIImageView *userPhoto;
+@property (weak, nonatomic) IBOutlet UILabel *firstName;
+@property (weak, nonatomic) IBOutlet UILabel *lastName;
+
+@end
+
 @implementation MFTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    self.userPhoto.layer.cornerRadius = 30;
+    self.userPhoto.layer.cornerRadius = self.userPhoto.frame.size.width / 2;
     self.userPhoto.clipsToBounds = YES;
     self.userPhoto.layer.borderWidth = 1.0f;
     self.userPhoto.layer.borderColor = [UIColor purpleColor].CGColor;
 }
 
-- (void)configureCellWithFriend:(MFFriend *)friend {
+- (void)configureCellWithFriend:(MFFriend *)friend actionBlock:(GreenButtonDidPress)block{
     NSURL *url = [NSURL URLWithString:friend.photoThumbnail];
-    [self.userPhoto sd_setImageWithURL:url
-                      placeholderImage:[UIImage imageNamed:@"placeholder.jpg"]];
+    [self.userPhoto sd_setImageWithURL:url];
     self.firstName.text = friend.firstName;
     self.lastName.text = friend.lastName;
+    self.didTapButtonBlock = block;
 }
 
-- (void)configureCellWithUser:(MFUser *)user {
+- (void)configureCellWithUser:(MFUser *)user actionBlock:(GreenButtonDidPress)block{
     NSURL *url = [NSURL URLWithString:user.photoThumbnail];
-    [self.userPhoto sd_setImageWithURL:url
-                      placeholderImage:[UIImage imageNamed:@"placeholder.jpg"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                          
-                      }];
+    [self.userPhoto sd_setImageWithURL:url];
     self.firstName.text = user.firstName;
     self.lastName.text = user.lastName;
+    self.didTapButtonBlock = block;
+}
+
+- (IBAction)addButtonDidPress:(id)sender {
+    if (self.didTapButtonBlock) {
+        self.didTapButtonBlock(sender);
+    }
 }
 
 @end

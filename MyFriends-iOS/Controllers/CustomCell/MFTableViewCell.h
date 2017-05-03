@@ -9,13 +9,13 @@
 #import <UIKit/UIKit.h>
 @class MFFriend, MFUser;
 
+typedef void(^GreenButtonDidPress)(id sender);
+
 @interface MFTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *userPhoto;
-@property (weak, nonatomic) IBOutlet UILabel *firstName;
-@property (weak, nonatomic) IBOutlet UILabel *lastName;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 
-- (void)configureCellWithFriend:(MFFriend *)friend;
-- (void)configureCellWithUser:(MFUser *)user;
+- (void)configureCellWithFriend:(MFFriend *)friend actionBlock:(GreenButtonDidPress)block;
+- (void)configureCellWithUser:(MFUser *)user actionBlock:(GreenButtonDidPress)block;
 
 @end
